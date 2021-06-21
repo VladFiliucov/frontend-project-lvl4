@@ -5,6 +5,7 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import Login from './Login';
 
 export default function App() {
   return (
@@ -39,10 +40,6 @@ export default function App() {
 
 function Home() {
   return <h2>Home</h2>;
-}
-
-function Login() {
-  return <h2>Login</h2>;
 }
 
 function NoMatch() {
