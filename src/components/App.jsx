@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link,
 } from 'react-router-dom';
@@ -22,17 +22,11 @@ export default function App() {
           </ul>
         </nav>
 
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route path="*">
-            <NoMatch />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route exact path="/" element={<Home />} />
+          <Route path="*" element={<NoMatch />} />
+        </Routes>
       </div>
     </Router>
   );

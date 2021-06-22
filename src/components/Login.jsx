@@ -24,6 +24,7 @@ const submitFormData = (formData) => axios({
 });
 
 const Login = () => {
+  const navigateTo = useNavigate();
   const [authError, setAuthError] = useState(false);
 
   return (
@@ -46,7 +47,7 @@ const Login = () => {
             case 200:
               console.log('Success yay');
               setAuthError(false);
-              useNavigate('/');
+              navigateTo('/');
               break;
             default:
               throw 'Wooot';
