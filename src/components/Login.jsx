@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -13,53 +14,71 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
 });
 
-const Login = () => (
-  <div>
-    <h1>Please Log in</h1>
-    <Formik
-      initialValues={{ username: '', password: '' }}
-      validationSchema={SignupSchema}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
+const submitFormData = (formData) => axios({
+  method: 'post',
+  headers: { 'content-type': 'application/json' },
+  url: '/api/v1/login',
+  data: formData,
+});
+
+const Login = () => {
+  const [authError, setAuthError] = useState(false);
+
+  return (
+    <div>
+      <h1>Please Log in</h1>
+      {authError && <p>Incorrect username or password</p>}
+      <Formik
+        initialValues={{ username: '', password: '' }}
+        validationSchema={SignupSchema}
+        onSubmit={async (values, { setSubmitting }) => {
+          const creds = JSON.stringify(values, null, 2);
+          try {
+            const response = await submitFormData(creds);
+            setAuthError(false);
+          } catch (err) {
+            if (err.response.status === 401) {
+              setAuthError(true);
+            }
+          }
           setSubmitting(false);
-        }, 400);
-      }}
-    >
-      {({
-        values,
-        errors,
-        touched,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        isSubmitting,
-        /* and other goodies */
-      }) => (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="username"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.username}
-          />
-          {errors.username && touched.username && errors.username}
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.password}
-          />
-          {errors.password && touched.password && errors.password}
-          <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
-        </form>
-      )}
-    </Formik>
-  </div>
-);
+        }}
+      >
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          isSubmitting,
+          /* and other goodies */
+        }) => (
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="username"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.username}
+            />
+            {errors.username && touched.username && errors.username}
+            <input
+              type="password"
+              name="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
+            {errors.password && touched.password && errors.password}
+            <button type="submit" disabled={isSubmitting}>
+              Submit
+            </button>
+          </form>
+        )}
+      </Formik>
+    </div>
+  );
+};
 
 export default Login;

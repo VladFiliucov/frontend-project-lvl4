@@ -19,6 +19,7 @@
   },
   "author": "Vlad Filiucov",
   "dependencies": {
+    "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "core-js": "^3.12.1",
     "debug": "^4.3.1",
