@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -45,6 +46,7 @@ const Login = () => {
             case 200:
               console.log('Success yay');
               setAuthError(false);
+              useNavigate('/');
               break;
             default:
               throw 'Wooot';
