@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import useToken from '../hooks/useToken';
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -25,6 +26,7 @@ const submitFormData = (formData) => axios({
 
 const Login = () => {
   const navigateTo = useNavigate();
+  const { saveToken } = useToken();
   const [authError, setAuthError] = useState(false);
 
   return (
@@ -37,15 +39,14 @@ const Login = () => {
         onSubmit={async (values, { setSubmitting }) => {
           const creds = JSON.stringify(values, null, 2);
 
-          const { status } = await submitFormData(creds);
+          const { status, data } = await submitFormData(creds);
 
           switch (status) {
             case 401:
-              console.log('auth errror');
               setAuthError(true);
               break;
             case 200:
-              console.log('Success yay');
+              saveToken(data.token)
               setAuthError(false);
               navigateTo('/');
               break;
