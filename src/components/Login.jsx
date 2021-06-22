@@ -18,6 +18,7 @@ const submitFormData = (formData) => axios({
   method: 'post',
   headers: { 'content-type': 'application/json' },
   url: '/api/v1/login',
+  validateStatus: () => true,
   data: formData,
 });
 
@@ -33,14 +34,22 @@ const Login = () => {
         validationSchema={SignupSchema}
         onSubmit={async (values, { setSubmitting }) => {
           const creds = JSON.stringify(values, null, 2);
-          try {
-            const response = await submitFormData(creds);
-            setAuthError(false);
-          } catch (err) {
-            if (err.response.status === 401) {
+
+          const { status } = await submitFormData(creds);
+
+          switch (status) {
+            case 401:
+              console.log('auth errror');
               setAuthError(true);
-            }
+              break;
+            case 200:
+              console.log('Success yay');
+              setAuthError(false);
+              break;
+            default:
+              throw 'Wooot';
           }
+
           setSubmitting(false);
         }}
       >
