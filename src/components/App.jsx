@@ -6,46 +6,60 @@ import {
   Link,
 } from 'react-router-dom';
 import Login from './Login';
-// import useAuth from '../hooks/useAuth';
+import RedirectToLogin from './routes/RedirectToLogin';
+import { AuthProvider, useAuth } from '../hooks/auth';
 
 export default function App() {
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </nav>
+    <AuthProvider>
+      <Router>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/about">About</Link>
+              </li>
+            </ul>
+          </nav>
 
-        <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route exact path="/">
-            <Home />
-          </Route>
-          <Route exact path="/about">
-            <About />
-          </Route>
-          <Route path="*">
-            <NoMatch />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+          <Switch>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/about">
+              <About />
+            </Route>
+            <Route path="*">
+              <NoMatch />
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
-function Home() {
+function Home(...rest) {
+  const auth = useAuth();
+  return (
+    <Route
+      {...rest}
+      render={({ location }) => (auth.user ? (
+        <h2>Home</h2>
+      ) : (
+        <RedirectToLogin location={location} />
+      ))}
+    />
+  );
   // useAuth();
 
   // return (
@@ -56,7 +70,7 @@ function Home() {
   //     }}
   //   />
   // );
-  return <h2>Home</h2>;
+  // return <h2>Home</h2>;
 }
 
 function About() {
