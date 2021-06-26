@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import useToken from '../hooks/useToken';
 
 const SignupSchema = Yup.object().shape({
@@ -25,7 +25,7 @@ const submitFormData = (formData) => axios({
 });
 
 const Login = () => {
-  const navigateTo = useNavigate();
+  // const navigateTo = useNavigate();
   const { saveToken } = useToken();
   const [authError, setAuthError] = useState(false);
 
@@ -48,7 +48,7 @@ const Login = () => {
             case 200:
               saveToken(data.token)
               setAuthError(false);
-              navigateTo('/');
+              // navigateTo('/');
               break;
             default:
               throw 'Wooot';

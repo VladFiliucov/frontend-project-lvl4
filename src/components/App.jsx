@@ -1,12 +1,12 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Routes,
+  Switch,
   Route,
   Link,
 } from 'react-router-dom';
 import Login from './Login';
-import useAuth from '../hooks/useAuth';
+// import useAuth from '../hooks/useAuth';
 
 export default function App() {
   return (
@@ -26,26 +26,40 @@ export default function App() {
           </ul>
         </nav>
 
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/about" element={<About />} />
-          <Route path="*" element={<NoMatch />} />
-        </Routes>
+        <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route exact path="/about">
+            <About />
+          </Route>
+          <Route path="*">
+            <NoMatch />
+          </Route>
+        </Switch>
       </div>
     </Router>
   );
 }
 
 function Home() {
-  useAuth();
+  // useAuth();
 
+  // return (
+  //   <Redirect
+  //     to={{
+  //       pathname: '/login',
+  //       state: { from: 'foo' },
+  //     }}
+  //   />
+  // );
   return <h2>Home</h2>;
 }
 
 function About() {
-  useAuth();
-
   return <h2>About</h2>;
 }
 
