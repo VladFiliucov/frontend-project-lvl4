@@ -33,7 +33,9 @@ export default function App() {
               <Login />
             </Route>
             <Route exact path="/">
-              <Home />
+              <Home>
+                <h2>Home</h2>
+              </Home>
             </Route>
             <Route exact path="/about">
               <About />
@@ -48,13 +50,13 @@ export default function App() {
   );
 }
 
-function Home(...rest) {
+function Home({ children, ...rest }) {
   const auth = useAuth();
   return (
     <Route
       {...rest}
       render={({ location }) => (auth.user ? (
-        <h2>Home</h2>
+        children
       ) : (
         <RedirectToLogin location={location} />
       ))}
