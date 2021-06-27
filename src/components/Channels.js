@@ -14,7 +14,7 @@ const Channels = ({ user }) => {
     fetchChannels(user).then(({ data: { channels, messages, currentChannelId } }) => {
       setUsersChannels(channels);
     });
-  });
+  }, []);
 
   return (
     <div>
