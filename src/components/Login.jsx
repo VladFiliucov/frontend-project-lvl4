@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Formik } from 'formik';
+import { useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
-import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
-import useToken from '../hooks/useToken';
+import { useAuth } from '../hooks/auth';
 
 const SignupSchema = Yup.object().shape({
   username: Yup.string()
@@ -16,18 +15,11 @@ const SignupSchema = Yup.object().shape({
     .required('Required'),
 });
 
-const submitFormData = (formData) => axios({
-  method: 'post',
-  headers: { 'content-type': 'application/json' },
-  url: '/api/v1/login',
-  validateStatus: () => true,
-  data: formData,
-});
-
 const Login = () => {
-  // const navigateTo = useNavigate();
-  const { saveToken } = useToken();
   const [authError, setAuthError] = useState(false);
+  const history = useHistory();
+  const location = useLocation();
+  const auth = useAuth();
 
   return (
     <div>
@@ -39,20 +31,13 @@ const Login = () => {
         onSubmit={async (values, { setSubmitting }) => {
           const creds = JSON.stringify(values, null, 2);
 
-          const { status, data } = await submitFormData(creds);
-
-          switch (status) {
-            case 401:
-              setAuthError(true);
-              break;
-            case 200:
-              saveToken(data.token)
-              setAuthError(false);
-              // navigateTo('/');
-              break;
-            default:
-              throw 'Wooot';
-          }
+          auth.signin(creds, () => {
+            const { from } = location.state || { from: { pathname: '/' } };
+            setAuthError(false);
+            history.replace(from);
+          }, () => {
+            setAuthError(true);
+          });
 
           setSubmitting(false);
         }}

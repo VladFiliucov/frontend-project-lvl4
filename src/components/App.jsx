@@ -51,11 +51,13 @@ export default function App() {
 }
 
 function Home({ children, ...rest }) {
-  const auth = useAuth();
+  const { getAuthToken } = useAuth();
+  const authToken = getAuthToken();
+
   return (
     <Route
       {...rest}
-      render={({ location }) => (auth.user ? (
+      render={({ location }) => (authToken ? (
         children
       ) : (
         <RedirectToLogin location={location} />
