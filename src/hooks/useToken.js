@@ -1,13 +1,13 @@
 export default () => {
-  const saveToken = (token) => {
+  const saveToken = (data) => {
     try {
       // Save to local storage
-      window.localStorage.setItem('authToken', token);
+      window.localStorage.setItem('currentUser', JSON.stringify(data));
     } catch (error) {
       // A more advanced implementation would handle the error case
       console.warn(error);
     }
   };
-  const getAuthToken = () => window.localStorage.getItem('authToken');
-  return { saveToken, getAuthToken };
+  const getCurrentUser = () => window.localStorage.getItem('currentUser');
+  return { saveToken, getCurrentUser };
 };

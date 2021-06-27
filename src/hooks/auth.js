@@ -26,14 +26,14 @@ const fakeAuth = {
 
 function useProvideAuth() {
   const [user, setUser] = useState(null);
-  const { saveToken, getAuthToken } = useToken();
+  const { saveToken, getCurrentUser } = useToken();
 
   const signin = (creds, successCb, unauthorizedCb) => fakeAuth.signin(() => {
     signInUser(creds).then(({ status, data }) => {
       switch (status) {
         case 200:
           setUser(data);
-          saveToken(data.token);
+          saveToken(data);
           successCb();
           break;
         case 401:
@@ -54,7 +54,7 @@ function useProvideAuth() {
 
   return {
     user,
-    getAuthToken,
+    getCurrentUser,
     signin,
     signout,
   };
