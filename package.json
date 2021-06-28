@@ -19,6 +19,7 @@
   },
   "author": "Vlad Filiucov",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.6.0",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "core-js": "^3.12.1",
