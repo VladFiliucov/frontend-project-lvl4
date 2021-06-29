@@ -1,5 +1,6 @@
 import React from 'react';
 import { useGetChannelsQuery } from '../services/channels.js';
+import Messages from './Messages';
 
 // TODO: Things to fetch
 // { channels, messages, currentChannelId }
@@ -17,6 +18,7 @@ const Channels = () => {
           <strong>{channel.name}</strong>
         </div>
       ))}
+      <Messages />
     </div>
   );
 };
