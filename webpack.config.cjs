@@ -32,6 +32,15 @@ module.exports = {
         use: 'babel-loader',
       },
       {
+        // TODO: Add this workaround to support RTK Query esm only as webpack dev server can't resolve it
+        // maybe babel upgrade will fix this later but for now that's enough to get going
+        // https://github.com/webpack/webpack/issues/11467#issuecomment-691873586
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false
+        }
+      },
+      {
         test: /\.s[ac]ss$/i,
         use: [
           { loader: MiniCssExtractPlugin.loader },

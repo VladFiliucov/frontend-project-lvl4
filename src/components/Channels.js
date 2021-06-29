@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useGetChannelsQuery } from '../services/channels.js';
 
-const fetchChannels = (user) => axios({
-  method: 'get',
-  headers: { Authorization: `Bearer ${user.token}` },
-  url: '/api/v1/data',
-});
+// TODO: Things to fetch
+// { channels, messages, currentChannelId }
+const Channels = () => {
+  const { data, error, isLoading } = useGetChannelsQuery();
 
-const Channels = ({ user }) => {
-  const [usersChannels, setUsersChannels] = useState([]);
-
-  useEffect(() => {
-    fetchChannels(user).then(({ data: { channels, messages, currentChannelId } }) => {
-      setUsersChannels(channels);
-    });
-  }, []);
+  if (isLoading) return <h1>Fetching data...</h1>;
+  if (error) return <h1>There was an error fetching data</h1>;
 
   return (
     <div>
-      <h2>Show channels</h2>
-      {usersChannels.length && usersChannels.map((channel) => <p>{channel.name}</p>)}
+      <h2>channels</h2>
+      {data.channels.map((channel) => (
+        <div key={`channel-${channel.id}`}>
+          <strong>{channel.name}</strong>
+        </div>
+      ))}
     </div>
   );
 };

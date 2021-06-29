@@ -5,6 +5,8 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../store.js';
 import Login from './Login';
 import Channels from './Channels';
 import RedirectToLogin from './routes/RedirectToLogin';
@@ -12,40 +14,42 @@ import { AuthProvider, useAuth } from '../hooks/auth';
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <div>
-          <nav>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-              <li>
-                <Link to="/about">About</Link>
-              </li>
-            </ul>
-          </nav>
+    <Provider store={store}>
+      <AuthProvider>
+        <Router>
+          <div>
+            <nav>
+              <ul>
+                <li>
+                  <Link to="/">Home</Link>
+                </li>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/about">About</Link>
+                </li>
+              </ul>
+            </nav>
 
-          <Switch>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/about">
-              <About />
-            </Route>
-            <Route path="*">
-              <NoMatch />
-            </Route>
-          </Switch>
-        </div>
-      </Router>
-    </AuthProvider>
+            <Switch>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route exact path="/">
+                <Home />
+              </Route>
+              <Route exact path="/about">
+                <About />
+              </Route>
+              <Route path="*">
+                <NoMatch />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </AuthProvider>
+    </Provider>
   );
 }
 
