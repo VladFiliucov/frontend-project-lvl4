@@ -7,7 +7,7 @@ import Messages from './Messages';
 const Channels = () => {
   const { data, error, isLoading } = useGetChannelsQuery();
 
-  if (isLoading) return <h1>Fetching data...</h1>;
+  if (isLoading) return <h1>Fetching channels...</h1>;
   if (error) return <h1>There was an error fetching data</h1>;
 
   return (
@@ -19,6 +19,12 @@ const Channels = () => {
         </div>
       ))}
       <Messages />
+      <form>
+        <label htmlFor="newMessage">
+          <input type="text"/>
+        </label>
+        <button type="submit">Send</button>
+      </form>
     </div>
   );
 };
