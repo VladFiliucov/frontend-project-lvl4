@@ -5,13 +5,15 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { store } from '../store';
 import { SocketProvider, socketProvider, useSocket } from '../contexts/socket.js';
 import Login from './Login';
 import Channels from './Channels';
 import RedirectToLogin from './routes/RedirectToLogin';
 import { AuthProvider, useAuth } from '../hooks/auth';
+import {nanoid} from '@reduxjs/toolkit';
+import { addMessage } from '../store/messagesSlice';
 
 export default function App() {
   const [boo, setBoo] = useState(['foo'])
@@ -82,13 +84,16 @@ function Home() {
 
 function Somecomp() {
   const socket = useSocket();
+  const dispatch = useDispatch()
   console.log('SKT', socket)
 
   const handleClick = (e) => {
     e.preventDefault();
-    socket.emit('newMessage', {username: 'Vlad', channelId: 1, msg: 'Hi there'}, (response) => {
+    const message = {id: nanoid(), userId: 1, channelId: 1, msg: 'Hi there'}
+    socket.emit('newMessage', message, (response) => {
       console.log('emitting')
       console.log('Response', response)
+      dispatch(addMessage(message));
       // TODO: if all good - clear form and reset
     });
   }

@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { channelsApi } from '../services/channels.js';
 import { messagesApi } from '../services/messages.js';
+import { messagesSlice } from './messagesSlice.js';
 
 // inspired by https://redux-toolkit.js.org/tutorials/rtk-query/#add-the-service-to-your-store
 export const store = configureStore({
@@ -10,12 +11,13 @@ export const store = configureStore({
     // Add the generated reducer as a specific top-level slice
     [channelsApi.reducerPath]: channelsApi.reducer,
     [messagesApi.reducerPath]: messagesApi.reducer,
+    messages: messagesSlice.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
-  .concat(messagesApi.middleware)
-  .concat(channelsApi.middleware),
+    .concat(messagesApi.middleware)
+    .concat(channelsApi.middleware),
 });
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
