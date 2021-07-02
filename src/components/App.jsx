@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,15 +6,20 @@ import {
   Link,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { store } from '../store.js';
+import { store } from '../store';
+import { SocketProvider, socketProvider, useSocket } from '../contexts/socket.js';
 import Login from './Login';
 import Channels from './Channels';
 import RedirectToLogin from './routes/RedirectToLogin';
 import { AuthProvider, useAuth } from '../hooks/auth';
 
 export default function App() {
+  const [boo, setBoo] = useState(['foo'])
+
+
   return (
     <Provider store={store}>
+      <SocketProvider>
       <AuthProvider>
         <Router>
           <div>
@@ -32,12 +37,18 @@ export default function App() {
               </ul>
             </nav>
 
+            <ul>
+              {boo.length && boo.map((e) => {
+                return <li>{e}</li>
+              })}
+            </ul>
             <Switch>
               <Route path="/login">
                 <Login />
               </Route>
               <Route exact path="/">
                 <Home />
+                <Somecomp />
               </Route>
               <Route exact path="/about">
                 <About />
@@ -49,6 +60,7 @@ export default function App() {
           </div>
         </Router>
       </AuthProvider>
+      </SocketProvider>
     </Provider>
   );
 }
@@ -66,6 +78,24 @@ function Home() {
       ))}
     />
   );
+}
+
+function Somecomp() {
+  const socket = useSocket();
+  console.log('SKT', socket)
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    socket.emit('newMessage', {username: 'Vlad', channelId: 1, msg: 'Hi there'}, (response) => {
+      console.log('emitting')
+      console.log('Response', response)
+      // TODO: if all good - clear form and reset
+    });
+  }
+
+  return (
+    <button onClick={handleClick}>Fire</button>
+  )
 }
 
 function About() {

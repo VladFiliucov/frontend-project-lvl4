@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { channelsApi } from './services/channels.js';
-import { messagesApi } from './services/messages.js';
+import { channelsApi } from '../services/channels.js';
+import { messagesApi } from '../services/messages.js';
 
 // inspired by https://redux-toolkit.js.org/tutorials/rtk-query/#add-the-service-to-your-store
 export const store = configureStore({
