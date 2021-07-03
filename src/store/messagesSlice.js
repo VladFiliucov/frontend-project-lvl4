@@ -7,18 +7,11 @@ const createMessage = (message) => ({
   msg: message.msg,
 });
 
-const initialState = [
-  createMessage({
-    id: 1, channelId: 1, userId: 1, msg: 'Hello World',
-  }),
-];
-
 export const messagesSlice = createSlice({
   name: 'messages',
-  initialState,
+  initialState: [],
   reducers: {
     addMessage: (state, action) => {
-      console.log('STATE is', state, action);
       const message = createMessage(action.payload);
       state.push(message);
     },

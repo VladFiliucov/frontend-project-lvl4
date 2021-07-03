@@ -1,16 +1,17 @@
 import React, { createContext, useContext } from 'react';
 import { io } from 'socket.io-client';
+import { useDispatch } from 'react-redux';
+import { addMessage } from '../store/messagesSlice';
 
 const socketContext = createContext();
 
 function useSocketProvider() {
   console.log('Calling useSocketProvider');
   const socket = io();
+  const dispatch = useDispatch();
 
-  socket.on('newMessage', function(msg) {
-    console.log('catching', msg)
-    // dispatch and action in RTK to append new message
-    // handle slow network in function submission
+  socket.on('newMessage', (msg) => {
+    dispatch(addMessage(msg));
   });
 
   return socket;

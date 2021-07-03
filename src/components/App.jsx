@@ -1,24 +1,20 @@
-import React, {useState} from 'react';
+import React  from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
 } from 'react-router-dom';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 import { store } from '../store';
-import { SocketProvider, socketProvider, useSocket } from '../contexts/socket.js';
+import { SocketProvider } from '../contexts/socket.js';
 import Login from './Login';
 import Channels from './Channels';
 import RedirectToLogin from './routes/RedirectToLogin';
 import { AuthProvider, useAuth } from '../hooks/auth';
-import {nanoid} from '@reduxjs/toolkit';
-import { addMessage } from '../store/messagesSlice';
+import MessageForm from './MessageForm';
 
 export default function App() {
-  const [boo, setBoo] = useState(['foo'])
-
-
   return (
     <Provider store={store}>
       <SocketProvider>
@@ -39,18 +35,13 @@ export default function App() {
               </ul>
             </nav>
 
-            <ul>
-              {boo.length && boo.map((e) => {
-                return <li>{e}</li>
-              })}
-            </ul>
             <Switch>
               <Route path="/login">
                 <Login />
               </Route>
               <Route exact path="/">
                 <Home />
-                <Somecomp />
+                <MessageForm />
               </Route>
               <Route exact path="/about">
                 <About />
@@ -80,27 +71,6 @@ function Home() {
       ))}
     />
   );
-}
-
-function Somecomp() {
-  const socket = useSocket();
-  const dispatch = useDispatch()
-  console.log('SKT', socket)
-
-  const handleClick = (e) => {
-    e.preventDefault();
-    const message = {id: nanoid(), userId: 1, channelId: 1, msg: 'Hi there'}
-    socket.emit('newMessage', message, (response) => {
-      console.log('emitting')
-      console.log('Response', response)
-      dispatch(addMessage(message));
-      // TODO: if all good - clear form and reset
-    });
-  }
-
-  return (
-    <button onClick={handleClick}>Fire</button>
-  )
 }
 
 function About() {
