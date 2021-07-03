@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { nanoid } from '@reduxjs/toolkit';
 import { useSocket } from '../contexts/socket.js';
+import { useAuth } from '../hooks/auth';
 
 const MesssageSchema = Yup.object().shape({
   message: Yup.string().required('Required'),
@@ -10,6 +11,7 @@ const MesssageSchema = Yup.object().shape({
 
 const MessageForm = () => {
   const socket = useSocket();
+  const auth = useAuth();
 
   return (
     <div>
@@ -18,9 +20,10 @@ const MessageForm = () => {
         validationSchema={MesssageSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           const { message: formMessage } = values;
+          const currentUser = JSON.parse(auth.getCurrentUser());
 
           const message = {
-            id: nanoid(), userId: 1, channelId: 1, msg: formMessage,
+            id: nanoid(), userId: currentUser.id, channelId: 1, msg: formMessage,
           };
           socket.emit('newMessage', message, ({ status }) => {
             if (status === 'ok') {

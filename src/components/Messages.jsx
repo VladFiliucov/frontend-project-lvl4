@@ -21,7 +21,7 @@ const Messages = () => {
       ))}
       {newMessages.map((message) => (
         <div key={`message-${message.id}`}>
-          <strong>{message.msg}</strong>
+          <strong>{message.userId}: {message.msg}</strong>
         </div>
       ))}
     </div>

@@ -19,6 +19,7 @@ const buildState = (defaultState) => {
     currentChannelId: generalChannelId,
     users: [
       { id: 1, username: 'admin', password: 'admin' },
+      { id: 2, username: 'coffeeman', password: 'morecoffee' },
     ],
   };
 
@@ -98,7 +99,7 @@ export default (app, defaultState = {}) => {
     }
 
     const token = app.jwt.sign({ userId: user.id });
-    reply.send({ token, username });
+    reply.send({ token, username, id: user.id });
   });
 
   app.post('/api/v1/signup', async (req, reply) => {

@@ -6,7 +6,6 @@ import { addMessage } from '../store/messagesSlice';
 const socketContext = createContext();
 
 function useSocketProvider() {
-  console.log('Calling useSocketProvider');
   const socket = io();
   const dispatch = useDispatch();
 
@@ -29,6 +28,5 @@ export function SocketProvider({ children }) {
 }
 
 export function useSocket() {
-  console.log('Calling useSocket');
   return useContext(socketContext);
 }
