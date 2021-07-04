@@ -6,6 +6,7 @@ import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
 import App from './components/App.jsx';
+import ChannelModal from './components/ChannelModal.jsx';
 
 import '../assets/application.scss';
 
@@ -14,9 +15,11 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 const container = document.querySelector('#chat');
+const modalContainer = document.querySelector('#modal');
 
 const runApp = () => {
   ReactDOM.render(<App />, container);
+  ReactDOM.render(<ChannelModal />, modalContainer);
 };
 
 runApp();
