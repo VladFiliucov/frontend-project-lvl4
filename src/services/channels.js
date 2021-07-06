@@ -24,6 +24,9 @@ export const channelsApi = createApi({
   endpoints: (builder) => ({
     getChannels: builder.query({
       query: () => 'data',
+      transformResponse: (response) => {
+        return response.channels
+      },
     }),
   }),
 });

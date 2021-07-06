@@ -4,6 +4,7 @@ import { setupListeners } from '@reduxjs/toolkit/query';
 import { channelsApi } from '../services/channels.js';
 import { messagesApi } from '../services/messages.js';
 import { messagesSlice } from './messagesSlice.js';
+import { channelsSlice } from './channelsSlice.js';
 
 // inspired by https://redux-toolkit.js.org/tutorials/rtk-query/#add-the-service-to-your-store
 export const store = configureStore({
@@ -12,6 +13,7 @@ export const store = configureStore({
     [channelsApi.reducerPath]: channelsApi.reducer,
     [messagesApi.reducerPath]: messagesApi.reducer,
     messages: messagesSlice.reducer,
+    channels: channelsSlice.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.

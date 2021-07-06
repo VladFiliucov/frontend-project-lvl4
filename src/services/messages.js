@@ -31,3 +31,5 @@ export const messagesApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const { useGetMessagesQuery } = messagesApi;
+
+export default messagesApi;

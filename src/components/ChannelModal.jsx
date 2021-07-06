@@ -3,7 +3,9 @@ import { Provider, useSelector } from 'react-redux';
 import { store } from '../store';
 
 const ModalContents = () => {
-  const newMessages = useSelector((state) => state.messages);
+  const newMessages = useSelector((state) => {
+    return state.messages
+  });
 
   return (
     <div>

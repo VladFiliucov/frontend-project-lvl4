@@ -5,7 +5,7 @@ import {
   Route,
   Link,
 } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { Provider, useDispatch } from 'react-redux';
 import { store } from '../store';
 import { SocketProvider } from '../contexts/socket.js';
 import Login from './Login';
@@ -13,6 +13,7 @@ import Channels from './Channels';
 import RedirectToLogin from './routes/RedirectToLogin';
 import { AuthProvider, useAuth } from '../hooks/auth';
 import MessageForm from './MessageForm';
+import { fetchDataFromApi } from '../thunks/fetchData';
 
 export default function App() {
   return (
@@ -59,8 +60,10 @@ export default function App() {
 }
 
 function Home() {
+  const dispatch = useDispatch();
   const { getCurrentUser } = useAuth();
   const currentUser = JSON.parse(getCurrentUser());
+  dispatch(fetchDataFromApi())
 
   return (
     <Route
