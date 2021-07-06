@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import messagesApi from '../services/messages';
+import { fetchDataFromApi } from '../thunks/fetchData';
 
 const createMessage = (message) => ({
   id: message.id,
@@ -8,25 +8,35 @@ const createMessage = (message) => ({
   msg: message.msg,
 });
 
+const initialState = {
+  data: [],
+  error: null,
+  loading: false,
+};
+
 export const messagesSlice = createSlice({
   name: 'messages',
-  initialState: [],
+  initialState,
   reducers: {
     addMessage: (state, action) => {
       const message = createMessage(action.payload);
-      state.push(message);
+      state.data.push(message);
     },
   },
-  // extraReducers: (builder) => {
-  //   builder.addMatcher(
-  //     messagesApi.endpoints.getMessages,
-  //     (state, { payload }) => {
-  //       console.log('Somehow getting here');
-  //       // state.token = payload.token
-  //       // state.user = payload.user
-  //     }
-  //   )
-  // },
+  extraReducers: {
+    [fetchDataFromApi.fulfilled]: (state, action) => {
+      state.data = action.payload.data.messages;
+      state.error = null;
+      state.loading = false;
+    },
+    [fetchDataFromApi.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [fetchDataFromApi.rejected]: (state, action) => {
+      state.error = action.error;
+      state.loading = false;
+    },
+  },
 });
 
 export const { addMessage } = messagesSlice.actions;

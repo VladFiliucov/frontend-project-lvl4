@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { fetchDataFromApi } from '../thunks/fetchData';
 import Messages from './Messages';
 
 const Channels = () => {
