@@ -2,8 +2,6 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { getMessagesForChannel } from '../store/messagesSlice';
 
-// TODO: Things to fetch
-// { channels, messages, currentChannelId }
 const Messages = () => {
   const { error, loading } = useSelector((state) => state.messages);
 

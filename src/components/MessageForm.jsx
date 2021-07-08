@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { nanoid } from '@reduxjs/toolkit';
 import { useSocket } from '../contexts/socket.js';
 import { useAuth } from '../hooks/auth';
+import { useSelector } from 'react-redux';
 
 const MesssageSchema = Yup.object().shape({
   message: Yup.string().required('Required'),
@@ -12,6 +13,7 @@ const MesssageSchema = Yup.object().shape({
 const MessageForm = () => {
   const socket = useSocket();
   const auth = useAuth();
+  const { currentChannelId } = useSelector((state) => state.channels)
 
   return (
     <div>
@@ -23,7 +25,7 @@ const MessageForm = () => {
           const currentUser = JSON.parse(auth.getCurrentUser());
 
           const message = {
-            id: nanoid(), userId: currentUser.id, channelId: 2, msg: formMessage,
+            id: nanoid(), userId: currentUser.id, channelId: currentChannelId, msg: formMessage,
           };
           socket.emit('newMessage', message, ({ status }) => {
             if (status === 'ok') {
