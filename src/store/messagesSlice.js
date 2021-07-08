@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import { fetchDataFromApi } from '../thunks/fetchData';
 
 const createMessage = (message) => ({
@@ -13,6 +13,14 @@ const initialState = {
   error: null,
   loading: false,
 };
+
+const getCurrentChannel = (state) => state.channels.currentChannelId;
+const getMessages = (state) => state.messages.data;
+
+export const getMessagesForChannel = createSelector(
+  [getCurrentChannel, getMessages],
+  (currentChannelId, allMessages) => allMessages.filter((message) => message.channelId === currentChannelId),
+);
 
 export const messagesSlice = createSlice({
   name: 'messages',

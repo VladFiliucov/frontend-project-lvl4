@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux'
+import { getMessagesForChannel } from '../store/messagesSlice';
 
 // TODO: Things to fetch
 // { channels, messages, currentChannelId }
@@ -8,6 +9,8 @@ const Messages = () => {
 
   if (loading) return <h1>Fetching data...</h1>;
   if (error) return <h1>There was an error fetching data</h1>;
+  const res = useSelector(getMessagesForChannel)
+  console.log('This got called', res)
 
   return (
     <div>

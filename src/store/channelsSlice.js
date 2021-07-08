@@ -5,6 +5,7 @@ const initialState = {
   data: [],
   error: null,
   loading: false,
+  currentChannelId: null,
 };
 
 export const channelsSlice = createSlice({
@@ -13,6 +14,7 @@ export const channelsSlice = createSlice({
   extraReducers: {
     [fetchDataFromApi.fulfilled]: (state, action) => {
       state.data = action.payload.data.channels;
+      state.currentChannelId = action.payload.data.currentChannelId;
       state.error = null;
       state.loading = false;
     },
