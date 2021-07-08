@@ -10,7 +10,7 @@ const MesssageSchema = Yup.object().shape({
   message: Yup.string().required('Required'),
 });
 
-const MessageForm = () => {
+const MessageForm = ({ inputRef }) => {
   const socket = useSocket();
   const auth = useAuth();
   const { currentChannelId } = useSelector((state) => state.channels)
@@ -50,6 +50,7 @@ const MessageForm = () => {
             <input
               type="text"
               name="message"
+              ref={inputRef}
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.message}

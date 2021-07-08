@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Messages from './Messages';
 import Channel from './Channel';
 
-const Channels = () => {
+const Channels = ({ inputRef }) => {
   const { data, error, loading } = useSelector((state) => state.channels);
 
   if (loading) return <h1>Fetching channels...</h1>;
@@ -14,7 +14,7 @@ const Channels = () => {
     <div>
       <h2>channels</h2>
       <ul>
-        {data.map((channel) => <Channel key={`channel-${channel.id}`} channel={channel} />)}
+        {data.map((channel) => <Channel key={`channel-${channel.id}`} channel={channel} inputRef={inputRef} />)}
       </ul>
       <Messages />
     </div>
