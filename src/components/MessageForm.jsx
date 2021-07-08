@@ -23,7 +23,7 @@ const MessageForm = () => {
           const currentUser = JSON.parse(auth.getCurrentUser());
 
           const message = {
-            id: nanoid(), userId: currentUser.id, channelId: 1, msg: formMessage,
+            id: nanoid(), userId: currentUser.id, channelId: 2, msg: formMessage,
           };
           socket.emit('newMessage', message, ({ status }) => {
             if (status === 'ok') {

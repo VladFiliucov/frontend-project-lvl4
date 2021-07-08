@@ -1,13 +1,20 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Messages from './Messages';
+import { setCurrentChannelId } from '../store/channelsSlice';
 
 const Channels = () => {
   const { data, error, loading } = useSelector((state) => state.channels);
+  const dispatch = useDispatch();
 
   if (loading) return <h1>Fetching channels...</h1>;
   if (error) return <h1>There was an error fetching data</h1>;
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    dispatch(setCurrentChannelId(2))
+  }
 
   return (
     <div>
@@ -18,6 +25,7 @@ const Channels = () => {
         </div>
       ))}
       <Messages />
+      <button onClick={handleClick}>Fire</button>
     </div>
   );
 };
