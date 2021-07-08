@@ -20,6 +20,7 @@ const MessageForm = () => {
       <Formik
         initialValues={{ message: '' }}
         validationSchema={MesssageSchema}
+        validateOnBlur={false}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           const { message: formMessage } = values;
           const currentUser = JSON.parse(auth.getCurrentUser());
