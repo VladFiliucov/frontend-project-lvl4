@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { nanoid } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
 import { useSocket } from '../contexts/socket.js';
 import { useAuth } from '../hooks/auth';
-import { useSelector } from 'react-redux';
 
 const MesssageSchema = Yup.object().shape({
   message: Yup.string().required('Required'),
@@ -13,7 +13,11 @@ const MesssageSchema = Yup.object().shape({
 const MessageForm = ({ inputRef }) => {
   const socket = useSocket();
   const auth = useAuth();
-  const { currentChannelId } = useSelector((state) => state.channels)
+  const { currentChannelId } = useSelector((state) => state.channels);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [currentChannelId]);
 
   return (
     <div>
@@ -46,7 +50,7 @@ const MessageForm = ({ inputRef }) => {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <form onSubmit={handleSubmit}  autoComplete='off'>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <input
               type="text"
               name="message"
