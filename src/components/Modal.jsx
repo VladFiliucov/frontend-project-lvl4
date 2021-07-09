@@ -17,10 +17,10 @@ const ModalContents = () => {
   );
 };
 
-const ChannelModal = () => (
+const Modal = () => (
   <Provider store={store}>
     <ModalContents />
   </Provider>
 );
 
-export default ChannelModal;
+export default Modal;

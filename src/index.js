@@ -6,7 +6,7 @@ import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
 import App from './components/App.jsx';
-import ChannelModal from './components/ChannelModal.jsx';
+import Modal from './components/Modal.jsx';
 
 import '../assets/application.scss';
 
@@ -19,7 +19,7 @@ const modalContainer = document.querySelector('#modal');
 
 const runApp = () => {
   ReactDOM.render(<App />, container);
-  ReactDOM.render(<ChannelModal />, modalContainer);
+  ReactDOM.render(<Modal />, modalContainer);
 };
 
 runApp();
