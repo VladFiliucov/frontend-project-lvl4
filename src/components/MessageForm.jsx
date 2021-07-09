@@ -46,7 +46,7 @@ const MessageForm = ({ inputRef }) => {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}  autoComplete='off'>
             <input
               type="text"
               name="message"

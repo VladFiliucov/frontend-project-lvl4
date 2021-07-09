@@ -1,5 +1,6 @@
 import React, {createRef} from 'react';
 import { Provider, useSelector } from 'react-redux';
+import { SocketProvider } from '../contexts/socket.js';
 import { store } from '../store';
 import CreateChannel from './CreateChannel';
 
@@ -37,7 +38,9 @@ const ModalContents = () => {
 
 const Modal = () => (
   <Provider store={store}>
-    <ModalContents />
+    <SocketProvider>
+      <ModalContents />
+    </SocketProvider>
   </Provider>
 );
 
