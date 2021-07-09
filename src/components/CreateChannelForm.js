@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useSocket } from '../contexts/socket.js';
+import { toggleModal } from '../store/modalSlice';
+import {setCurrentChannelId} from '../store/channelsSlice.js';
 
 const buildValidationScheema = (exisingChannels) => (
   Yup.object().shape({
@@ -12,6 +14,8 @@ const buildValidationScheema = (exisingChannels) => (
 
 const CreateChannelForm = ({ newChannelInputRef }) => {
   const socket = useSocket();
+  const dispatch = useDispatch();
+
   useEffect(() => {
     newChannelInputRef.current.focus();
   }, [newChannelInputRef]);
@@ -19,6 +23,10 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
   const allChannelNames = useSelector((state) => state.channels.data.map((channel) => channel.name));
 
   const validationSchema = buildValidationScheema(allChannelNames);
+
+  const handleCloseClick = (e) => {
+    dispatch(toggleModal());
+  };
 
   return (
     <div>
@@ -30,9 +38,12 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
           const channel = {
             name: values.name, removable: true,
           };
-          socket.emit('newChannel', channel, ({ status }) => {
+          socket.emit('newChannel', channel, (response) => {
+            const { status, data } = response;
             if (status === 'ok') {
               resetForm();
+              dispatch(toggleModal());
+              dispatch(setCurrentChannelId(data.id));
             }
             // TODO: if error - handle
           });
@@ -68,7 +79,7 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
                   )
               }
               <div className="d-flex justify-content-end">
-                <button type="button" className="me-2 btn btn-secondary">
+                <button type="button" onClick={handleCloseClick} className="me-2 btn btn-secondary">
                   Cancel
                 </button>
                 <button type="submit" disabled={isSubmitting} className="btn btn-primary">
