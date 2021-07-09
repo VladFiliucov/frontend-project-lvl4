@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import Messages from './Messages';
 import Channel from './Channel';
+import ChannelHeader from './ChannelHeader';
 
 const Channels = ({ inputRef }) => {
   const { data, error, loading } = useSelector((state) => state.channels);
@@ -12,7 +13,7 @@ const Channels = ({ inputRef }) => {
 
   return (
     <div>
-      <h2>channels</h2>
+      <ChannelHeader />
       <ul>
         {data.map((channel) => <Channel key={`channel-${channel.id}`} channel={channel} inputRef={inputRef} />)}
       </ul>
