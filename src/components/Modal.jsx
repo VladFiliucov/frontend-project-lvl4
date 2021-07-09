@@ -1,7 +1,5 @@
 import React, {createRef} from 'react';
-import { Provider, useSelector } from 'react-redux';
-import { SocketProvider } from '../contexts/socket.js';
-import { store } from '../store';
+import { useSelector } from 'react-redux';
 import CreateChannel from './CreateChannel';
 
 const toggleOverlay = (show) => {
@@ -37,11 +35,7 @@ const ModalContents = () => {
 };
 
 const Modal = () => (
-  <Provider store={store}>
-    <SocketProvider>
-      <ModalContents />
-    </SocketProvider>
-  </Provider>
+  <ModalContents />
 );
 
 export default Modal;

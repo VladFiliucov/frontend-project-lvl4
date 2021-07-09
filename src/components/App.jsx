@@ -11,6 +11,7 @@ import { SocketProvider } from '../contexts/socket.js';
 import Login from './Login';
 import Home from './routes/Home';
 import { AuthProvider } from '../hooks/auth';
+import Modal from './Modal';
 
 export default function App() {
   return (
@@ -49,6 +50,7 @@ export default function App() {
               </Switch>
             </div>
           </Router>
+          <Modal />
         </AuthProvider>
       </SocketProvider>
     </Provider>
