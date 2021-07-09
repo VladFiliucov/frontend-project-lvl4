@@ -4,9 +4,11 @@ import * as Yup from 'yup';
 import { useSelector } from 'react-redux';
 import { useSocket } from '../contexts/socket.js';
 
-const ChannelSchema = Yup.object().shape({
-  name: Yup.string().required('Required'),
-});
+const buildValidationScheema = (exisingChannels) => (
+  Yup.object().shape({
+    name: Yup.mixed().notOneOf(exisingChannels).required('Required'),
+  })
+);
 
 const CreateChannelForm = ({ newChannelInputRef }) => {
   const socket = useSocket();
@@ -14,11 +16,15 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
     newChannelInputRef.current.focus();
   }, [newChannelInputRef]);
 
+  const allChannelNames = useSelector((state) => state.channels.data.map((channel) => channel.name));
+
+  const validationSchema = buildValidationScheema(allChannelNames);
+
   return (
     <div>
       <Formik
         initialValues={{ name: '' }}
-        validationSchema={ChannelSchema}
+        validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           console.log('Submitting?');
           const channel = {
@@ -42,7 +48,7 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <form onSubmit={handleSubmit} autoComplete='off'>
+          <form onSubmit={handleSubmit} autoComplete="off">
             <div className="form-group">
               <input
                 type="text"
