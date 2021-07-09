@@ -2,11 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setCurrentChannelId } from '../store/channelsSlice';
 
-const Channel = ({ channel, inputRef }) => {
+const Channel = ({ channel }) => {
   const dispatch = useDispatch();
   const handleClick = () => {
     dispatch(setCurrentChannelId(channel.id));
-    inputRef.current.focus();
   };
   return (
     <li>

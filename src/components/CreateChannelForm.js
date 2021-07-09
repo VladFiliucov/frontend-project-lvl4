@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSocket } from '../contexts/socket.js';
 import { toggleModal } from '../store/modalSlice';
-import {setCurrentChannelId} from '../store/channelsSlice.js';
+import { setCurrentChannelId } from '../store/channelsSlice.js';
 
 const buildValidationScheema = (exisingChannels) => (
   Yup.object().shape({
@@ -34,7 +34,6 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
         initialValues={{ name: '' }}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
-          console.log('Submitting?');
           const channel = {
             name: values.name, removable: true,
           };

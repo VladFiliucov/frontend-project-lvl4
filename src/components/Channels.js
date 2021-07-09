@@ -5,7 +5,7 @@ import Messages from './Messages';
 import Channel from './Channel';
 import ChannelHeader from './ChannelHeader';
 
-const Channels = ({ inputRef }) => {
+const Channels = () => {
   const { data, error, loading } = useSelector((state) => state.channels);
 
   if (loading) return <h1>Fetching channels...</h1>;
@@ -15,7 +15,7 @@ const Channels = ({ inputRef }) => {
     <div>
       <ChannelHeader />
       <ul>
-        {data.map((channel) => <Channel key={`channel-${channel.id}`} channel={channel} inputRef={inputRef} />)}
+        {data.map((channel) => <Channel key={`channel-${channel.id}`} channel={channel} />)}
       </ul>
       <Messages />
     </div>

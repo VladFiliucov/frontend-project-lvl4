@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { nanoid } from '@reduxjs/toolkit';
@@ -10,7 +10,8 @@ const MesssageSchema = Yup.object().shape({
   message: Yup.string().required('Required'),
 });
 
-const MessageForm = ({ inputRef }) => {
+const MessageForm = () => {
+  const inputRef = useRef(null);
   const socket = useSocket();
   const auth = useAuth();
   const { currentChannelId } = useSelector((state) => state.channels);

@@ -1,4 +1,4 @@
-import React, {useRef}  from 'react';
+import React from 'react';
 import { Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Channels from '../Channels';
@@ -12,14 +12,13 @@ function Home() {
   const { getCurrentUser } = useAuth();
   const currentUser = JSON.parse(getCurrentUser());
   dispatch(fetchDataFromApi())
-  const inputRef = useRef(null);
 
   return (
     <Route
       render={({ location }) => (currentUser ? (
         <>
-          <Channels user={currentUser} inputRef={inputRef} />
-          <MessageForm inputRef={inputRef} />
+          <Channels user={currentUser} />
+          <MessageForm />
         </>
       ) : (
         <RedirectToLogin location={location} />
