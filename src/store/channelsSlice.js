@@ -14,7 +14,10 @@ export const channelsSlice = createSlice({
   reducers: {
     setCurrentChannelId: (state, action) => {
       state.currentChannelId = action.payload;
-    }
+    },
+    addChannel: (state, action) => {
+      state.data.push(action.payload);
+    },
   },
   extraReducers: {
     [fetchDataFromApi.fulfilled]: (state, action) => {
@@ -33,4 +36,4 @@ export const channelsSlice = createSlice({
   },
 });
 
-export const { setCurrentChannelId } = channelsSlice.actions;
+export const { setCurrentChannelId, addChannel } = channelsSlice.actions;
