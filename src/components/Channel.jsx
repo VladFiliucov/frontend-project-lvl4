@@ -8,9 +8,11 @@ const Channel = ({ channel }) => {
     dispatch(setCurrentChannelId(channel.id));
   };
   return (
-    <li>
-      <button onClick={handleClick}>
-        #
+    <li className="nav-item w-100">
+      <button onClick={handleClick} className="w-100 rounded-0 text-start btn">
+        <span className="me-1">
+          #
+        </span>
         {channel.name}
       </button>
     </li>
