@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 import { io } from 'socket.io-client';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../store/messagesSlice';
-import { addChannel, deleteChannel } from '../store/channelsSlice';
+import { addChannel, deleteChannel, renameChannel } from '../store/channelsSlice';
 
 const socketContext = createContext();
 
@@ -22,11 +22,14 @@ function useSocketProvider() {
     dispatch(deleteChannel(id));
   });
 
+  socket.on('renameChannel', (channel) => {
+    dispatch(renameChannel(channel));
+  });
+
   return socket;
 }
 
 export function SocketProvider({ children }) {
-  console.log('Calling SocketProvider');
   const socket = useSocketProvider();
 
   return (

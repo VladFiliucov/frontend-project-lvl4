@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentChannelId } from '../store/channelsSlice';
 import DeleteConfrimation from './DeleteConfirmation';
+import RenameChannelForm from './RenameChannelForm';
 
 const UnremovableChannel = ({ channel, handleClick, active }) => {
   const labelBtnClassNames = `w-100 rounded-0 text-start btn ${active && 'btn-secondary'}`;
@@ -21,12 +22,14 @@ const UnremovableChannel = ({ channel, handleClick, active }) => {
 
 const RemovableChannel = ({ channel, handleClick, active }) => {
   const labelBtnClassNames = `w-100 rounded-0 text-start text-truncate btn ${active && 'btn-secondary'}`;
-  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const [showEditChannelForm, setShowEditChannelForm] = useState(false);
   const handleDeletion = () => {
-    setShowConfirmation(true);
+    setShowDeleteConfirmation(true);
     console.log('Deleting');
   };
   const handleRenaming = () => {
+    setShowEditChannelForm(true);
     console.log('Renaming');
   };
 
@@ -46,7 +49,8 @@ const RemovableChannel = ({ channel, handleClick, active }) => {
           </Dropdown.Menu>
         </Dropdown>
       </div>
-      <DeleteConfrimation channel={channel} show={showConfirmation} toggleConfirmation={setShowConfirmation} />
+      <DeleteConfrimation channel={channel} show={showDeleteConfirmation} toggleConfirmation={setShowDeleteConfirmation} />
+      <RenameChannelForm channel={channel} show={showEditChannelForm} toggleConfirmation={setShowEditChannelForm} />
     </>
   );
 };

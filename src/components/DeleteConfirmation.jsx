@@ -7,7 +7,7 @@ const DeleteConfrimation = ({ channel, show, toggleConfirmation }) => {
   const socket = useSocket();
   const handleClose = () => toggleConfirmation(false);
 
-  const handlConfirmDeletion = () => {
+  const handleConfirmDeletion = () => {
     socket.emit('removeChannel', { id: channel.id }, (response) => {
       const { status } = response;
       if (status === 'ok') {
@@ -29,7 +29,7 @@ const DeleteConfrimation = ({ channel, show, toggleConfirmation }) => {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary" onClick={handlConfirmDeletion}>
+          <Button variant="primary" onClick={handleConfirmDeletion}>
             Delete
           </Button>
         </Modal.Footer>

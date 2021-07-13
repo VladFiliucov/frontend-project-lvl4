@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {remove} from 'lodash';
+import { remove } from 'lodash';
 import { fetchDataFromApi } from '../thunks/fetchData';
 
 const initialState = {
@@ -20,10 +20,14 @@ export const channelsSlice = createSlice({
       state.data.push(action.payload);
     },
     deleteChannel: (state, action) => {
-      remove(state.data, (channel) => channel.id === action.payload)
+      remove(state.data, (channel) => channel.id === action.payload);
       if (state.currentChannelId === action.payload) {
         state.currentChannelId = 1;
       }
+    },
+    renameChannel: (state, action) => {
+      const channel = state.data.find((channel) => channel.id === action.payload.id);
+      channel.name = action.payload.name;
     },
   },
   extraReducers: {
@@ -43,4 +47,6 @@ export const channelsSlice = createSlice({
   },
 });
 
-export const { setCurrentChannelId, addChannel, deleteChannel } = channelsSlice.actions;
+export const {
+  setCurrentChannelId, addChannel, deleteChannel, renameChannel,
+} = channelsSlice.actions;
