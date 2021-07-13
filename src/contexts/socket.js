@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 import { io } from 'socket.io-client';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../store/messagesSlice';
-import { addChannel } from '../store/channelsSlice';
+import { addChannel, deleteChannel } from '../store/channelsSlice';
 
 const socketContext = createContext();
 
@@ -16,6 +16,10 @@ function useSocketProvider() {
 
   socket.on('newChannel', (channel) => {
     dispatch(addChannel(channel));
+  });
+
+  socket.on('removeChannel', ({ id }) => {
+    dispatch(deleteChannel(id));
   });
 
   return socket;

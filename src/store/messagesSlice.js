@@ -1,5 +1,7 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
+import { remove } from 'lodash';
 import { fetchDataFromApi } from '../thunks/fetchData';
+import { deleteChannel } from './channelsSlice';
 
 const createMessage = (message) => ({
   id: message.id,
@@ -43,6 +45,9 @@ export const messagesSlice = createSlice({
     [fetchDataFromApi.rejected]: (state, action) => {
       state.error = action.error;
       state.loading = false;
+    },
+    [deleteChannel]: (state, action) => {
+      remove(state.data, (msg) => msg.channelId === action.payload);
     },
   },
 });
