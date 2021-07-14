@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAuth } from '../hooks/auth';
 
@@ -75,6 +75,10 @@ const Login = () => {
           </form>
         )}
       </Formik>
+      Don&apos;t have an account? -&nbsp;
+      <Link to="/signup">
+        Signup here
+      </Link>
     </div>
   );
 };
