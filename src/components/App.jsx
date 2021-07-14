@@ -12,6 +12,7 @@ import Login from './Login';
 import Home from './routes/Home';
 import { AuthProvider } from '../hooks/auth';
 import Modal from './Modal';
+import Signup from './routes/Signup';
 
 export default function App() {
   return (
@@ -29,7 +30,7 @@ export default function App() {
                     <Link to="/login">Login</Link>
                   </li>
                   <li>
-                    <Link to="/about">About</Link>
+                    <Link to="/signup">Sign up</Link>
                   </li>
                 </ul>
               </nav>
@@ -41,8 +42,8 @@ export default function App() {
                 <Route exact path="/">
                   <Home />
                 </Route>
-                <Route exact path="/about">
-                  <About />
+                <Route exact path="/signup">
+                  <Signup />
                 </Route>
                 <Route path="*">
                   <NoMatch />
@@ -55,10 +56,6 @@ export default function App() {
       </SocketProvider>
     </Provider>
   );
-}
-
-function About() {
-  return <h2>About</h2>;
 }
 
 function NoMatch() {
