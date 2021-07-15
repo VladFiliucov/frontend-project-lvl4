@@ -9,15 +9,18 @@ import { fetchDataFromApi } from '../../thunks/fetchData';
 
 function Home() {
   const dispatch = useDispatch();
-  const { getCurrentUser } = useAuth();
-  const currentUser = JSON.parse(getCurrentUser());
-  dispatch(fetchDataFromApi())
+  const { user } = useAuth();
+
+  // TODO: if no user probably should clear state
+  if (user) {
+    dispatch(fetchDataFromApi())
+  }
 
   return (
     <Route
-      render={({ location }) => (currentUser ? (
+      render={({ location }) => (user ? (
         <>
-          <Channels user={currentUser} />
+          <Channels />
           <MessageForm />
         </>
       ) : (

@@ -38,7 +38,7 @@ const fakeAuth = {
 
 function useProvideAuth() {
   const [user, setUser] = useState(null);
-  const { saveToken, getCurrentUser } = useToken();
+  const { saveToken, getCurrentUser, logoutCurrentUser } = useToken();
 
   const signin = (creds, successCb, unauthorizedCb) => fakeAuth.signin(() => {
     signInUser(creds).then(({ status, data }) => {
@@ -80,6 +80,7 @@ function useProvideAuth() {
 
   const signout = (cb) => fakeAuth.signout(() => {
     setUser(null);
+    logoutCurrentUser();
     cb();
   });
 

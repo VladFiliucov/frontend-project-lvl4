@@ -9,5 +9,7 @@ export default () => {
     }
   };
   const getCurrentUser = () => window.localStorage.getItem('currentUser');
-  return { saveToken, getCurrentUser };
+  const logoutCurrentUser = () => window.localStorage.removeItem('currentUser');
+
+  return { saveToken, getCurrentUser, logoutCurrentUser };
 };

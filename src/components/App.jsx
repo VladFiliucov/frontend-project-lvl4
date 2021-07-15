@@ -13,6 +13,7 @@ import Home from './routes/Home';
 import { AuthProvider } from '../hooks/auth';
 import Modal from './Modal';
 import Signup from './routes/Signup';
+import LogoutButton from './LogoutButton';
 
 export default function App() {
   return (
@@ -21,10 +22,10 @@ export default function App() {
         <AuthProvider>
           <Router>
             <div>
-              <nav>
-                <ul>
+              <nav className='d-flex'>
+                <ul className='mr-auto p-2'>
                   <li>
-                    <Link to="/">Home</Link>
+                    <Link to="/">Hexlet Chat</Link>
                   </li>
                   <li>
                     <Link to="/login">Login</Link>
@@ -33,6 +34,11 @@ export default function App() {
                     <Link to="/signup">Sign up</Link>
                   </li>
                 </ul>
+                <div className='p-2'>
+                  <LogoutButton>
+                    Sign out
+                  </LogoutButton>
+                </div>
               </nav>
 
               <Switch>
