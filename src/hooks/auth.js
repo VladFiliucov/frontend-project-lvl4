@@ -12,9 +12,21 @@ const signInUser = (formData) => axios({
   data: formData,
 });
 
+const signUpUser = (formData) => axios({
+  method: 'post',
+  headers: { 'content-type': 'application/json' },
+  url: '/api/v1/signup',
+  validateStatus: (status) => [201, 409].includes(status),
+  data: formData,
+});
+
 const fakeAuth = {
   isAuthenticated: false,
   signin(cb) {
+    fakeAuth.isAuthenticated = true;
+    setTimeout(cb, 100); // fake async
+  },
+  signup(cb) {
     fakeAuth.isAuthenticated = true;
     setTimeout(cb, 100); // fake async
   },
@@ -47,6 +59,25 @@ function useProvideAuth() {
     });
   });
 
+  const signup = (creds, successCb, confictCb) => fakeAuth.signup(() => {
+    signUpUser(creds).then(({ status, data }) => {
+      switch (status) {
+        case 201:
+          setUser(data);
+          saveToken(data);
+          successCb();
+          break;
+        case 409:
+          confictCb();
+          break;
+        default:
+          throw 'Oups';
+      }
+    }).catch((e) => {
+      console.log('Handle network errors here', e);
+    });
+  });
+
   const signout = (cb) => fakeAuth.signout(() => {
     setUser(null);
     cb();
@@ -56,6 +87,7 @@ function useProvideAuth() {
     user,
     getCurrentUser,
     signin,
+    signup,
     signout,
   };
 }

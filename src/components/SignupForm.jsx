@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
-import { Form, Button } from 'react-bootstrap';
+import { Alert, Form, Button } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAuth } from '../hooks/auth';
@@ -19,30 +19,34 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignupForm = () => {
-  const [authError, setAuthError] = useState(false);
+  const [userExistsError, setUserExistsError] = useState(false);
   const history = useHistory();
   const location = useLocation();
   const auth = useAuth();
 
   return (
     <SignupFormWrapper>
-      {authError && <p>Incorrect username or password</p>}
+      { userExistsError && (
+        <Alert variant="danger">
+          Username already taken
+        </Alert>
+      )}
       <Formik
         initialValues={{ username: '', password: '', passwordConfirmation: '' }}
         validationSchema={SignupSchema}
         onSubmit={async (values, { setSubmitting }) => {
           console.log('Values are', values);
-          // const creds = JSON.stringify(values, null, 2);
+          const creds = JSON.stringify(values, null, 2);
 
-          // auth.signin(creds, () => {
-          //   const { from } = location.state || { from: { pathname: '/' } };
-          //   setAuthError(false);
-          //   history.replace(from);
-          // }, () => {
-          //   setAuthError(true);
-          // });
+          auth.signup(creds, () => {
+            const { from } = location.state || { from: { pathname: '/' } };
+            setUserExistsError(false);
+            history.replace(from);
+          }, () => {
+            setUserExistsError(true);
+          });
 
-          // setSubmitting(false);
+          setSubmitting(false);
         }}
       >
         {({
