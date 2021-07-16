@@ -64,13 +64,13 @@ const SignupForm = () => {
           /* and other goodies */
         }) => (
           <Form onSubmit={handleSubmit}>
-            <h1>Registration</h1>
+            <h1>{t('signupPage.headline')}</h1>
             <Form.Group className="mb-3" controlId="formUsername">
-              <Form.Label>Username</Form.Label>
+              <Form.Label>{t('signupPage.form.fields.username')}</Form.Label>
               <Form.Control
                 name="username"
                 type="text"
-                placeholder="Username"
+                placeholder={t('signupPage.form.fields.username')}
                 value={values.username}
                 onChange={handleChange}
                 isInvalid={touched.username && !!errors.username}
@@ -80,11 +80,11 @@ const SignupForm = () => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPassword">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>{t('signupPage.form.fields.password')}</Form.Label>
               <Form.Control
                 name="password"
                 type="password"
-                placeholder="Your password"
+                placeholder={t('signupPage.form.fields.password')}
                 value={values.password}
                 onChange={handleChange}
                 isInvalid={touched.password && !!errors.password}
@@ -94,11 +94,11 @@ const SignupForm = () => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPasswordConfirmation">
-              <Form.Label>Password confirmation</Form.Label>
+              <Form.Label>{t('signupPage.form.fields.passwordConfirmation')}</Form.Label>
               <Form.Control
                 name="passwordConfirmation"
                 type="password"
-                placeholder="Your password"
+                placeholder={t('signupPage.form.fields.passwordConfirmation')}
                 value={values.passwordConfirmation}
                 onChange={handleChange}
                 isInvalid={touched.passwordConfirmation && !!errors.passwordConfirmation}
@@ -107,7 +107,7 @@ const SignupForm = () => {
                 {errors.passwordConfirmation && touched.passwordConfirmation && errors.passwordConfirmation}
               </Form.Control.Feedback>
             </Form.Group>
-            <Button type="submit" disabled={isSubmitting}>Register</Button>
+            <Button type="submit" disabled={isSubmitting}>{t('signupPage.form.cta')}</Button>
           </Form>
         )}
       </Formik>

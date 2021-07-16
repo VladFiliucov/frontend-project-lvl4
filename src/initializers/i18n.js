@@ -29,7 +29,14 @@ i18n
             required: 'This field is required',
           },
           signupPage: {
+            headline: 'Registration',
             form: {
+              cta: 'Sign up',
+              fields: {
+                username: 'Username',
+                password: 'Password',
+                passwordConfirmation: 'Password confirmation',
+              },
               errors: {
                 required: 'Required field',
                 passwordMatch: 'Passwords must match',
@@ -53,7 +60,14 @@ i18n
             required: 'Обязательное поле',
           },
           signupPage: {
+            headline: 'Регистрация',
             form: {
+              cta: 'Зерегестрироваться',
+              fields: {
+                username: 'Имя пользователя',
+                password: 'Пароль',
+                passwordConfirmation: 'Подтверждение пароля',
+              },
               errors: {
                 required: 'Обязательное поле',
                 passwordMatch: 'Пароли должны совпадать',
