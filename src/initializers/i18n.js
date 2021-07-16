@@ -46,6 +46,9 @@ i18n
               },
             },
           },
+          chatPage: {
+            headline: 'Channels',
+          },
         },
       },
       ru: {
@@ -76,6 +79,9 @@ i18n
                 userExists: 'Такой пользователь уже существует',
               },
             },
+          },
+          chatPage: {
+            headline: 'Каналы',
           },
         },
       },
