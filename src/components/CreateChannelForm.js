@@ -2,19 +2,24 @@ import React, { useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useSocket } from '../contexts/socket.js';
 import { toggleModal } from '../store/modalSlice';
 import { setCurrentChannelId } from '../store/channelsSlice.js';
 
-const buildValidationScheema = (exisingChannels) => (
-  Yup.object().shape({
-    name: Yup.mixed().notOneOf(exisingChannels).required('Required'),
-  })
-);
+const buildValidationScheema = (exisingChannels, t) => {
+  const exisitngChannelsMsg = t('chatPage.form.errors.channelExists');
+  const requiredMsg = t('chatPage.form.errors.required');
+
+  return Yup.object().shape({
+    name: Yup.mixed().notOneOf(exisingChannels, exisitngChannelsMsg).required(requiredMsg),
+  });
+};
 
 const CreateChannelForm = ({ newChannelInputRef }) => {
   const socket = useSocket();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   useEffect(() => {
     newChannelInputRef.current.focus();
@@ -22,7 +27,7 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
 
   const allChannelNames = useSelector((state) => state.channels.data.map((channel) => channel.name));
 
-  const validationSchema = buildValidationScheema(allChannelNames);
+  const validationSchema = buildValidationScheema(allChannelNames, t);
 
   const handleCloseClick = (e) => {
     dispatch(toggleModal());
@@ -79,10 +84,10 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
               }
               <div className="d-flex justify-content-end">
                 <button type="button" onClick={handleCloseClick} className="me-2 btn btn-secondary">
-                  Cancel
+                  {t('chatPage.form.actions.cancel')}
                 </button>
                 <button type="submit" disabled={isSubmitting} className="btn btn-primary">
-                  Send
+                  {t('chatPage.form.actions.submit')}
                 </button>
               </div>
             </div>

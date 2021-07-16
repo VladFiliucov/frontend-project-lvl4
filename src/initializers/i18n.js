@@ -54,6 +54,10 @@ i18n
                 cancel: 'Cancel',
                 submit: 'Add',
               },
+              errors: {
+                required: 'Required field',
+                channelExists: 'Must be uniq',
+              },
             },
           },
         },
@@ -94,6 +98,10 @@ i18n
               actions: {
                 cancel: 'Отменить',
                 submit: 'Отправить',
+              },
+              errors: {
+                required: 'Обязательное поле',
+                channelExists: 'Должно быть уникальным',
               },
             },
           },
