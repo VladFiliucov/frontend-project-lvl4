@@ -28,6 +28,17 @@ i18n
           signin: {
             required: 'This field is required',
           },
+          signupPage: {
+            form: {
+              errors: {
+                required: 'Required field',
+                passwordMatch: 'Passwords must match',
+                usernameLength: 'From 3 to 20 characters',
+                passwordLength: 'Minimum 6 characters',
+                userExists: 'Username already taken',
+              },
+            },
+          },
         },
       },
       ru: {
@@ -40,6 +51,17 @@ i18n
           dontHaveAccount: 'Нет аккаунта? - ',
           signin: {
             required: 'Обязательное поле',
+          },
+          signupPage: {
+            form: {
+              errors: {
+                required: 'Обязательное поле',
+                passwordMatch: 'Пароли должны совпадать',
+                usernameLength: 'От 3 до 20 символов',
+                passwordLength: 'Не менее 6 символов',
+                userExists: 'Такой пользователь уже существует',
+              },
+            },
           },
         },
       },

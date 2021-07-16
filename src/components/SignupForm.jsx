@@ -3,19 +3,21 @@ import { Formik } from 'formik';
 import { Alert, Form, Button } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../hooks/auth';
 import SignupFormWrapper from './SignupFormWrapper';
 
-const SignupSchema = Yup.object().shape({
+const getSignupSchema = (translation) => Yup.object().shape({
   username: Yup.string()
-    .min(3, 'Too Short!')
-    .max(20, 'Too Long!')
-    .required('Required'),
+    .min(3, translation('signupPage.form.errors.usernameLength'))
+    .max(20, translation('signupPage.form.errors.usernameLength'))
+    .required(translation('signupPage.form.errors.required')),
   password: Yup.string()
-    .min(6, 'Too Short!')
-    .required('Required'),
+    .min(6, translation('signupPage.form.errors.passwordLength'))
+    .required(translation('signupPage.form.errors.required')),
   passwordConfirmation: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match').required('Required'),
+    .oneOf([Yup.ref('password'), null], translation('signupPage.form.errors.passwordMatch'))
+    .required(translation('signupPage.form.errors.required')),
 });
 
 const SignupForm = () => {
@@ -23,19 +25,21 @@ const SignupForm = () => {
   const history = useHistory();
   const location = useLocation();
   const auth = useAuth();
+  const { t } = useTranslation();
+
+  const signupSchema = getSignupSchema(t);
 
   return (
     <SignupFormWrapper>
       { userExistsError && (
         <Alert variant="danger">
-          Username already taken
+          {t('signupPage.form.errors.userExists')}
         </Alert>
       )}
       <Formik
         initialValues={{ username: '', password: '', passwordConfirmation: '' }}
-        validationSchema={SignupSchema}
+        validationSchema={signupSchema}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log('Values are', values);
           const creds = JSON.stringify(values, null, 2);
 
           auth.signup(creds, () => {
