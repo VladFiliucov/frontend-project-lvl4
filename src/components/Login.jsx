@@ -19,13 +19,15 @@ const Login = () => {
   const auth = useAuth();
   const { t } = useTranslation();
 
+  const signinSchema = getSigninSchema(t);
+
   return (
     <div>
       <h1>{t('login')}</h1>
       {authError && <p>{t('incorrectCredentials')}</p>}
       <Formik
         initialValues={{ username: '', password: '' }}
-        validationSchema={getSigninSchema(t)}
+        validationSchema={signinSchema}
         onSubmit={async (values, { setSubmitting }) => {
           const creds = JSON.stringify(values, null, 2);
 
