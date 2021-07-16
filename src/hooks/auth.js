@@ -1,5 +1,6 @@
 import React, { createContext, useState, useContext } from 'react';
 import axios from 'axios';
+import { useRollbar } from '@rollbar/react';
 import useToken from './useToken.js';
 
 const authContext = createContext();
@@ -38,6 +39,7 @@ const fakeAuth = {
 
 function useProvideAuth() {
   const [user, setUser] = useState(null);
+  const rollbar = useRollbar();
   const { saveToken, getCurrentUser, logoutCurrentUser } = useToken();
 
   const signin = (creds, successCb, unauthorizedCb) => fakeAuth.signin(() => {
@@ -52,10 +54,12 @@ function useProvideAuth() {
           unauthorizedCb();
           break;
         default:
-          throw 'Oups';
+          throw new Error('Error on signin');
       }
-    }).catch(() => {
-      console.log('Handle network errors here');
+    }).catch((error) => {
+      const parsedCredentials = JSON.parse(creds);
+
+      rollbar.error('Error signing in user', error, { username: parsedCredentials.username });
     });
   });
 
