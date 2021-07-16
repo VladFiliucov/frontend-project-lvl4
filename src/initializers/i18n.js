@@ -64,6 +64,9 @@ i18n
               errors: {
                 required: 'Required field',
               },
+              actions: {
+                submit: 'Send',
+              },
             },
           },
         },
@@ -114,6 +117,9 @@ i18n
             messageForm: {
               errors: {
                 required: 'Обязательное поле',
+              },
+              actions: {
+                submit: 'Отправить',
               },
             },
           },

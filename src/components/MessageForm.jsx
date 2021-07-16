@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { nanoid } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { Button } from 'react-bootstrap';
 import { useSocket } from '../contexts/socket.js';
 import { useAuth } from '../hooks/auth';
 
@@ -65,9 +66,7 @@ const MessageForm = () => {
               value={values.message}
             />
             {errors.message && touched.message && errors.message}
-            <button type="submit" disabled={isSubmitting}>
-              Send
-            </button>
+            <Button type="submit" disabled={isSubmitting}>{t('chatPage.messageForm.actions.submit')}</Button>
           </form>
         )}
       </Formik>
