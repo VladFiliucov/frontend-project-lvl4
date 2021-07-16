@@ -24,6 +24,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin(),
+    // systemvars for heroku https://stackoverflow.com/a/68171380/5346310
     new Dotenv({ systemvars: true }),
   ],
   module: {
