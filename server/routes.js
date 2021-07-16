@@ -111,6 +111,7 @@ export default (app, defaultState = {}) => {
       reply.send(new Conflict());
       return;
     }
+    throw new Error('Testing rollbar setup')
 
     const newUser = { id: getNextId(), username, password };
     const token = app.jwt.sign({ userId: newUser.id });
