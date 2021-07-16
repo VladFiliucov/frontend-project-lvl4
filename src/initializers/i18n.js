@@ -60,6 +60,11 @@ i18n
                 channelExists: 'Must be uniq',
               },
             },
+            messageForm: {
+              errors: {
+                required: 'Required field',
+              },
+            },
           },
         },
       },
@@ -104,6 +109,11 @@ i18n
               errors: {
                 required: 'Обязательное поле',
                 channelExists: 'Должно быть уникальным',
+              },
+            },
+            messageForm: {
+              errors: {
+                required: 'Обязательное поле',
               },
             },
           },

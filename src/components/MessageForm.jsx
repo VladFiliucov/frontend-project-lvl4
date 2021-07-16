@@ -3,18 +3,22 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { nanoid } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { useSocket } from '../contexts/socket.js';
 import { useAuth } from '../hooks/auth';
 
-const MesssageSchema = Yup.object().shape({
-  message: Yup.string().required('Required'),
+const getMessageSchemaValidation = (t) => Yup.object().shape({
+  message: Yup.string().required(t('chatPage.messageForm.errors.required')),
 });
 
 const MessageForm = () => {
   const inputRef = useRef(null);
   const socket = useSocket();
   const auth = useAuth();
+  const { t } = useTranslation();
   const { currentChannelId } = useSelector((state) => state.channels);
+
+  const messageSchemaValidation = getMessageSchemaValidation(t);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -24,7 +28,7 @@ const MessageForm = () => {
     <div>
       <Formik
         initialValues={{ message: '' }}
-        validationSchema={MesssageSchema}
+        validationSchema={messageSchemaValidation}
         validateOnBlur={false}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           const { message: formMessage } = values;
