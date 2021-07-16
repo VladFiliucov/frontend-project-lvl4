@@ -1,18 +1,15 @@
 import React, { useState } from 'react';
 import { Formik } from 'formik';
 import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { useAuth } from '../hooks/auth';
 
-const SignupSchema = Yup.object().shape({
+const getSigninSchema = (translation) => Yup.object().shape({
   username: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .required(translation('signin.required')),
   password: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
+    .required(translation('signin.required')),
 });
 
 const Login = () => {
@@ -20,14 +17,15 @@ const Login = () => {
   const history = useHistory();
   const location = useLocation();
   const auth = useAuth();
+  const { t } = useTranslation();
 
   return (
     <div>
-      <h1>Please Log in</h1>
-      {authError && <p>Incorrect username or password</p>}
+      <h1>{t('login')}</h1>
+      {authError && <p>{t('incorrectCredentials')}</p>}
       <Formik
         initialValues={{ username: '', password: '' }}
-        validationSchema={SignupSchema}
+        validationSchema={getSigninSchema(t)}
         onSubmit={async (values, { setSubmitting }) => {
           const creds = JSON.stringify(values, null, 2);
 
@@ -70,14 +68,14 @@ const Login = () => {
             />
             {errors.password && touched.password && errors.password}
             <button type="submit" disabled={isSubmitting}>
-              Submit
+              {t('login')}
             </button>
           </form>
         )}
       </Formik>
-      Don&apos;t have an account? -&nbsp;
+      {t('dontHaveAccount')}
       <Link to="/signup">
-        Signup here
+        {t('signup')}
       </Link>
     </div>
   );

@@ -6,6 +6,7 @@ import {
   Link,
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { store } from '../store';
 import { SocketProvider } from '../contexts/socket.js';
 import Login from './Login';
@@ -16,6 +17,8 @@ import Signup from './routes/Signup';
 import LogoutButton from './LogoutButton';
 
 export default function App() {
+  const { t } = useTranslation();
+
   return (
     <Provider store={store}>
       <SocketProvider>
@@ -25,18 +28,15 @@ export default function App() {
               <nav className='d-flex'>
                 <ul className='mr-auto p-2'>
                   <li>
-                    <Link to="/">Hexlet Chat</Link>
+                    <Link to="/">{t('siteName')}</Link>
                   </li>
                   <li>
-                    <Link to="/login">Login</Link>
-                  </li>
-                  <li>
-                    <Link to="/signup">Sign up</Link>
+                    <Link to="/signup">{t('signup')}</Link>
                   </li>
                 </ul>
                 <div className='p-2'>
                   <LogoutButton>
-                    Sign out
+                    {t('signout')}
                   </LogoutButton>
                 </div>
               </nav>
