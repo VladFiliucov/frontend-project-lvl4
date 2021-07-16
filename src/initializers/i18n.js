@@ -48,6 +48,7 @@ i18n
           },
           chatPage: {
             headline: 'Channels',
+            messages: 'Messages',
             form: {
               title: 'Add new channel',
               actions: {
@@ -93,6 +94,7 @@ i18n
           },
           chatPage: {
             headline: 'Каналы',
+            messages: 'Сообщения',
             form: {
               title: 'Добавить канал',
               actions: {
