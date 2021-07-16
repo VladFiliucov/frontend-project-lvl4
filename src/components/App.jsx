@@ -7,7 +7,10 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { Provider as RollbarProvider } from '@rollbar/react';
+import { ErrorBoundary } from '@rollbar/react';
 import { store } from '../store';
+import rollbarConfig from '../initializers/rollbar';
 import { SocketProvider } from '../contexts/socket.js';
 import Login from './Login';
 import Home from './routes/Home';
@@ -21,45 +24,49 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <SocketProvider>
-        <AuthProvider>
-          <Router>
-            <div>
-              <nav className='d-flex'>
-                <ul className='mr-auto p-2'>
-                  <li>
-                    <Link to="/">{t('siteName')}</Link>
-                  </li>
-                  <li>
-                    <Link to="/signup">{t('signup')}</Link>
-                  </li>
-                </ul>
-                <div className='p-2'>
-                  <LogoutButton>
-                    {t('signout')}
-                  </LogoutButton>
-                </div>
-              </nav>
+      <RollbarProvider config={rollbarConfig}>
+        <ErrorBoundary>
+          <SocketProvider>
+            <AuthProvider>
+              <Router>
+                <div>
+                  <nav className='d-flex'>
+                    <ul className='mr-auto p-2'>
+                      <li>
+                        <Link to="/">{t('siteName')}</Link>
+                      </li>
+                      <li>
+                        <Link to="/signup">{t('signup')}</Link>
+                      </li>
+                    </ul>
+                    <div className='p-2'>
+                      <LogoutButton>
+                        {t('signout')}
+                      </LogoutButton>
+                    </div>
+                  </nav>
 
-              <Switch>
-                <Route path="/login">
-                  <Login />
-                </Route>
-                <Route exact path="/">
-                  <Home />
-                </Route>
-                <Route exact path="/signup">
-                  <Signup />
-                </Route>
-                <Route path="*">
-                  <NoMatch />
-                </Route>
-              </Switch>
-            </div>
-          </Router>
-          <Modal />
-        </AuthProvider>
-      </SocketProvider>
+                  <Switch>
+                    <Route path="/login">
+                      <Login />
+                    </Route>
+                    <Route exact path="/">
+                      <Home />
+                    </Route>
+                    <Route exact path="/signup">
+                      <Signup />
+                    </Route>
+                    <Route path="*">
+                      <NoMatch />
+                    </Route>
+                  </Switch>
+                </div>
+              </Router>
+              <Modal />
+            </AuthProvider>
+          </SocketProvider>
+        </ErrorBoundary>
+      </RollbarProvider>
     </Provider>
   );
 }
