@@ -97,7 +97,6 @@ export default (app, defaultState = {}) => {
       reply.send(new Unauthorized());
       return;
     }
-    throw new Error('Testing rollbar setup')
 
     const token = app.jwt.sign({ userId: user.id });
     reply.send({ token, username, id: user.id });
