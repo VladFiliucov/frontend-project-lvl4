@@ -21,7 +21,6 @@ import LogoutButton from './LogoutButton';
 
 export default function App() {
   const { t } = useTranslation();
-  console.log('Whats up with config', rollbarConfig)
 
   return (
     <Provider store={store}>
