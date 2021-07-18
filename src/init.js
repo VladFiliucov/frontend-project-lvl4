@@ -6,4 +6,4 @@ import runApp from '.';
 const container = document.querySelector('#chat');
 
 // runApp(io);
-ReactDOM.render(runApp(io), container);
+ReactDOM.render(runApp(io()), container);

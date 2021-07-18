@@ -6,7 +6,7 @@ import { addChannel, deleteChannel, renameChannel } from '../store/channelsSlice
 const socketContext = createContext();
 
 function useSocketProvider(socketClient) {
-  const socket = socketClient();
+  const socket = socketClient;
   const dispatch = useDispatch();
 
   socket.on('newMessage', (msg) => {
