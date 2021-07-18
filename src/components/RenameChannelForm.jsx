@@ -70,6 +70,7 @@ const RenameChannelForm = ({ channel, show, toggleConfirmation }) => {
                     type="text"
                     name="name"
                     className={`mb-2 form-control ${errors.name && 'is-invalid'}`}
+                    data-testid="rename-channel"
                     ref={inputRef}
                     onChange={handleChange}
                     onBlur={handleBlur}

@@ -60,6 +60,7 @@ const MessageForm = () => {
             <input
               type="text"
               name="message"
+              data-testid="new-message"
               ref={inputRef}
               onChange={handleChange}
               onBlur={handleBlur}

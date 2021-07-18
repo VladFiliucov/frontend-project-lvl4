@@ -68,6 +68,7 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
               <input
                 type="text"
                 name="name"
+                data-testid="add-channel"
                 className={`mb-2 form-control ${errors.name && 'is-invalid'}`}
                 ref={newChannelInputRef}
                 onChange={handleChange}
