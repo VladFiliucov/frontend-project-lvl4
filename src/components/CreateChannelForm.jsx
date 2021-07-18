@@ -3,7 +3,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useSocket } from '../contexts/socket.js';
+import { useSocket } from '../contexts/socket';
 import { toggleModal } from '../store/modalSlice';
 import { setCurrentChannelId } from '../store/channelsSlice.js';
 

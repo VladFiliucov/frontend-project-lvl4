@@ -5,7 +5,7 @@ import { nanoid } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-bootstrap';
-import { useSocket } from '../contexts/socket.js';
+import { useSocket } from '../contexts/socket';
 import { useAuth } from '../hooks/auth';
 
 const getMessageSchemaValidation = (t) => Yup.object().shape({

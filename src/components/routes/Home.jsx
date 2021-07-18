@@ -5,7 +5,7 @@ import Channels from '../Channels';
 import MessageForm from '../MessageForm';
 import RedirectToLogin from './RedirectToLogin';
 import { useAuth } from '../../hooks/auth';
-import { fetchDataFromApi } from '../../thunks/fetchData';
+import fetchDataFromApi from '../../thunks/fetchData';
 
 function Home() {
   const dispatch = useDispatch();
