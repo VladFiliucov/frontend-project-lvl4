@@ -12,4 +12,4 @@ if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-export default (socketClient) => <App socketClient={socketClient} />
+export default async (socketClient) => <App socketClient={socketClient} />
