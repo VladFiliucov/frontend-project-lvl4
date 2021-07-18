@@ -17,7 +17,7 @@ const signUpUser = (formData) => axios({
   method: 'post',
   headers: { 'content-type': 'application/json' },
   url: '/api/v1/signup',
-  validateStatus: (status) => [201, 409].includes(status),
+  validateStatus: (status) => [200, 201, 409].includes(status),
   data: formData,
 });
 
@@ -75,6 +75,11 @@ function useProvideAuth() {
     signUpUser(creds).then(({ status, data }) => {
       switch (status) {
         case 201:
+          setUser(data);
+          saveToken(data);
+          successCb();
+          break;
+        case 200:
           setUser(data);
           saveToken(data);
           successCb();
