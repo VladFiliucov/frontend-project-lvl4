@@ -8,9 +8,9 @@ import { useAuth } from '../hooks/auth';
 
 const getSigninSchema = (translation) => Yup.object().shape({
   username: Yup.string()
-    .required(translation('signin.required')),
+    .required(translation('signinPage.form.errors.required')),
   password: Yup.string()
-    .required(translation('signin.required')),
+    .required(translation('signinPage.form.errors.required')),
 });
 
 const Login = () => {
@@ -25,7 +25,7 @@ const Login = () => {
   return (
     <div>
       <h1>{t('login')}</h1>
-      {authError && <p>{t('incorrectCredentials')}</p>}
+      {authError && <p>{t('signinPage.form.errors.incorrectCredentials')}</p>}
       <Formik
         initialValues={{ username: '', password: '' }}
         validationSchema={signinSchema}
@@ -55,11 +55,11 @@ const Login = () => {
         }) => (
           <Form onSubmit={handleSubmit}>
             <Form.Group className="mb-3" controlId="formUsername">
-              <Form.Label>{t('signupPage.form.fields.username')}</Form.Label>
+              <Form.Label>{t('signinPage.form.fields.username')}</Form.Label>
               <Form.Control
                 name="username"
                 type="text"
-                placeholder={t('signupPage.form.fields.username')}
+                placeholder={t('signinPage.form.fields.username')}
                 value={values.username}
                 onChange={handleChange}
                 isInvalid={touched.username && !!errors.username}
@@ -68,11 +68,11 @@ const Login = () => {
               {errors.username && touched.username && errors.username}
             </Form.Group>
             <Form.Group className="mb-3" controlId="formPassword">
-              <Form.Label>{t('signupPage.form.fields.password')}</Form.Label>
+              <Form.Label>{t('signinPage.form.fields.password')}</Form.Label>
               <Form.Control
                 name="password"
                 type="password"
-                placeholder={t('signupPage.form.fields.password')}
+                placeholder={t('signinPage.form.fields.password')}
                 value={values.password}
                 onChange={handleChange}
                 isInvalid={touched.password && !!errors.password}

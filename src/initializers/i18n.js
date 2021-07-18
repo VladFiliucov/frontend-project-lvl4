@@ -77,17 +77,27 @@ i18n
           signup: 'Регистрация',
           signout: 'Выйти',
           login: 'Войти',
-          incorrectCredentials: 'Неверные имя пользователя или пароль',
           dontHaveAccount: 'Нет аккаунта? - ',
-          signin: {
-            required: 'Обязательное поле',
+          signinPage: {
+            form: {
+              cta: 'Зерегестрироваться',
+              fields: {
+                username: 'Ваш ник',
+                password: 'Пароль',
+                passwordConfirmation: 'Подтвердите пароль',
+              },
+              errors: {
+                required: 'Обязательное поле',
+                incorrectCredentials: 'Неверные имя пользователя или пароль',
+              },
+            },
           },
           signupPage: {
             headline: 'Регистрация',
             form: {
               cta: 'Зерегестрироваться',
               fields: {
-                username: 'Ваш ник',
+                username: 'Имя пользователя',
                 password: 'Пароль',
                 passwordConfirmation: 'Подтвердите пароль',
               },
