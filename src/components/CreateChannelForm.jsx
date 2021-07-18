@@ -26,7 +26,7 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
   }, [newChannelInputRef]);
 
   const allChannelNames = useSelector(
-    (state) => state.channels.data.map((channel) => channel.name)
+    (state) => state.channels.data.map((channel) => channel.name),
   );
 
   const validationSchema = buildValidationScheema(allChannelNames, t);

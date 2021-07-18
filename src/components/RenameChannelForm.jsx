@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Button, Modal } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useSocket } from '../contexts/socket';
 
 const buildValidationScheema = (exisingChannels) => (
@@ -13,7 +13,6 @@ const buildValidationScheema = (exisingChannels) => (
 
 const RenameChannelForm = ({ channel, show, toggleConfirmation }) => {
   const socket = useSocket();
-  const dispatch = useDispatch();
   const inputRef = useRef(null);
   const handleClose = () => toggleConfirmation(false);
 
@@ -21,7 +20,9 @@ const RenameChannelForm = ({ channel, show, toggleConfirmation }) => {
     toggleConfirmation(false);
   };
 
-  const allChannelNames = useSelector((state) => state.channels.data.map((channel) => channel.name));
+  const allChannelNames = useSelector(
+    (state) => state.channels.data.map((chnl) => chnl.name),
+  );
   const validationSchema = buildValidationScheema(allChannelNames);
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const RenameChannelForm = ({ channel, show, toggleConfirmation }) => {
         <Formik
           initialValues={{ name: '' }}
           validationSchema={validationSchema}
-          onSubmit={async (values, { setSubmitting, resetForm }) => {
+          onSubmit={async (values, { resetForm }) => {
             const payload = {
               name: values.name, id: channel.id,
             };

@@ -58,7 +58,6 @@ const SignupForm = () => {
           errors,
           touched,
           handleChange,
-          handleBlur,
           handleSubmit,
           isSubmitting,
           /* and other goodies */
@@ -104,7 +103,11 @@ const SignupForm = () => {
                 isInvalid={touched.passwordConfirmation && !!errors.passwordConfirmation}
               />
               <Form.Control.Feedback type="invalid">
-                {errors.passwordConfirmation && touched.passwordConfirmation && errors.passwordConfirmation}
+                {
+                  errors.passwordConfirmation
+                    && touched.passwordConfirmation
+                    && errors.passwordConfirmation
+                }
               </Form.Control.Feedback>
             </Form.Group>
             <Button type="submit" disabled={isSubmitting}>{t('signupPage.form.cta')}</Button>

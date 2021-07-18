@@ -31,7 +31,7 @@ const MessageForm = () => {
         initialValues={{ message: '' }}
         validationSchema={messageSchemaValidation}
         validateOnBlur={false}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
+        onSubmit={async (values, { resetForm }) => {
           const { message: formMessage } = values;
           const currentUser = JSON.parse(auth.getCurrentUser());
 
