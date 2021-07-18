@@ -9,7 +9,7 @@ const signInUser = (formData) => axios({
   method: 'post',
   headers: { 'content-type': 'application/json' },
   url: '/api/v1/login',
-  validateStatus: (status) => [200, 401].includes(status),
+  validateStatus: (status) => [200, 201, 401].includes(status),
   data: formData,
 });
 
@@ -49,6 +49,11 @@ function useProvideAuth() {
     signInUser(creds).then(({ status, data }) => {
       switch (status) {
         case 200:
+          setUser(data);
+          saveToken(data);
+          successCb();
+          break;
+        case 201:
           setUser(data);
           saveToken(data);
           successCb();
