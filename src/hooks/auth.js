@@ -61,7 +61,7 @@ function useProvideAuth() {
       }
     }).catch((error) => {
       const parsedCredentials = JSON.parse(creds);
-      console.log('Error signing in', parsedCredentials)
+      console.log('Error signing in', error)
 
       // rollbar.error('Error signing in user', error, { username: parsedCredentials.username });
     });
