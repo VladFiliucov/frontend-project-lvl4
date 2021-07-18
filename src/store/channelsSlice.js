@@ -10,6 +10,7 @@ const initialState = {
 };
 
 export const channelsSlice = createSlice({
+  /* eslint-disable no-param-reassign */
   name: 'channels',
   initialState,
   reducers: {
@@ -26,7 +27,7 @@ export const channelsSlice = createSlice({
       }
     },
     renameChannel: (state, action) => {
-      const channel = state.data.find((channel) => channel.id === action.payload.id);
+      const channel = state.data.find((chanel) => chanel.id === action.payload.id);
       channel.name = action.payload.name;
     },
   },
@@ -37,7 +38,7 @@ export const channelsSlice = createSlice({
       state.error = null;
       state.loading = false;
     },
-    [fetchDataFromApi.pending]: (state, action) => {
+    [fetchDataFromApi.pending]: (state) => {
       state.loading = true;
     },
     [fetchDataFromApi.rejected]: (state, action) => {
@@ -45,6 +46,7 @@ export const channelsSlice = createSlice({
       state.loading = false;
     },
   },
+  /* eslint-enable no-param-reassign */
 });
 
 export const {

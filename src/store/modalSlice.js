@@ -8,7 +8,8 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    toggleModal: (state, action) => {
+    toggleModal: (state) => {
+      // eslint-disable-next-line no-param-reassign
       state.isOpened = !state.isOpened;
     },
   },

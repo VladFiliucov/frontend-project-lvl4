@@ -21,10 +21,12 @@ const getMessages = (state) => state.messages.data;
 
 export const getMessagesForChannel = createSelector(
   [getCurrentChannel, getMessages],
-  (currentChannelId, allMessages) => allMessages.filter((message) => message.channelId === currentChannelId),
+  (currentChannelId, allMessages) => allMessages
+    .filter((message) => message.channelId === currentChannelId),
 );
 
 export const messagesSlice = createSlice({
+  /* eslint-disable no-param-reassign */
   name: 'messages',
   initialState,
   reducers: {
@@ -39,7 +41,7 @@ export const messagesSlice = createSlice({
       state.error = null;
       state.loading = false;
     },
-    [fetchDataFromApi.pending]: (state, action) => {
+    [fetchDataFromApi.pending]: (state) => {
       state.loading = true;
     },
     [fetchDataFromApi.rejected]: (state, action) => {
@@ -50,6 +52,7 @@ export const messagesSlice = createSlice({
       remove(state.data, (msg) => msg.channelId === action.payload);
     },
   },
+  /* eslint-enable no-param-reassign */
 });
 
 export const { addMessage } = messagesSlice.actions;
