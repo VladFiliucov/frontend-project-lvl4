@@ -1,3 +1,4 @@
+// Игнорируем этот файл. пробовал всякие штуки с оставляю себе на будующее for reference
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import useToken from '../hooks/useToken.js';
 
@@ -24,9 +25,7 @@ export const channelsApi = createApi({
   endpoints: (builder) => ({
     getChannels: builder.query({
       query: () => 'data',
-      transformResponse: (response) => {
-        return response.channels
-      },
+      transformResponse: (response) => response.channels,
     }),
   }),
 });
