@@ -26,11 +26,9 @@ const RemovableChannel = ({ channel, handleClick, active }) => {
   const [showEditChannelForm, setShowEditChannelForm] = useState(false);
   const handleDeletion = () => {
     setShowDeleteConfirmation(true);
-    console.log('Deleting');
   };
   const handleRenaming = () => {
     setShowEditChannelForm(true);
-    console.log('Renaming');
   };
 
   return (

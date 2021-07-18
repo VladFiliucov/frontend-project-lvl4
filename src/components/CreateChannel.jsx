@@ -1,24 +1,27 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { Modal } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import CreateChannelForm from './CreateChannelForm';
+import { toggleModal } from '../store/modalSlice';
 
-const CreateChannel = ({ newChannelInputRef }) => {
+const CreateChannel = ({ newChannelInputRef, isOpened }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+
+  const handleClose = () => {
+    dispatch(toggleModal());
+  };
 
   return (
-    <div role="dialog" aria-modal="true" className="fade modal show" tabIndex="-1" style={{ display: 'block' }}>
-      <div className="modal-dialog modal-dialog-centered">
-        <div className="modal-content">
-          <div className="modal-header">
-            <div className="modal-title h4">{t('chatPage.form.title')}</div>
-            <button aria-label="Close" data-bs-dismiss="modal" type="button" className="btn btn-close" />
-          </div>
-          <div className="modal-body">
-            <CreateChannelForm newChannelInputRef={newChannelInputRef} />
-          </div>
-        </div>
-      </div>
-    </div>
+    <Modal show={isOpened} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>{t('chatPage.form.title')}</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <CreateChannelForm newChannelInputRef={newChannelInputRef} />
+      </Modal.Body>
+    </Modal>
   );
 };
 

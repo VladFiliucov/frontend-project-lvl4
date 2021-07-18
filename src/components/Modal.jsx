@@ -1,37 +1,12 @@
-import React, {createRef} from 'react';
+import React, { createRef } from 'react';
 import { useSelector } from 'react-redux';
 import CreateChannel from './CreateChannel';
 
-const toggleOverlay = (show) => {
-  const bodyTag = document.body;
-
-  if (show) {
-    bodyTag.classList.add('bg-light', 'modal-open');
-    bodyTag.setAttribute('style', 'overflow: hidden;');
-    return;
-  }
-  bodyTag.classList.remove('bg-light', 'modal-open');
-  bodyTag.removeAttribute('style');
-};
-
 const ModalContents = () => {
   const newChannelInputRef = createRef(null);
+  const modalOpened = useSelector((state) => state.modal.isOpened);
 
-  const modalOpened = useSelector((state) => {
-    const { isOpened } = state.modal;
-
-    toggleOverlay(isOpened);
-
-    return isOpened;
-  });
-
-  if (!modalOpened) return null;
-
-  return (
-    <div>
-      <CreateChannel newChannelInputRef={newChannelInputRef} />
-    </div>
-  );
+  return <CreateChannel newChannelInputRef={newChannelInputRef} isOpened={modalOpened} />;
 };
 
 const Modal = () => (
