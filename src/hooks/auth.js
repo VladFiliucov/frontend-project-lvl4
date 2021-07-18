@@ -25,15 +25,18 @@ const fakeAuth = {
   isAuthenticated: false,
   signin(cb) {
     fakeAuth.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
+    // setTimeout(cb, 100); // fake async
+    cb();
   },
   signup(cb) {
     fakeAuth.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
+    // setTimeout(cb, 100); // fake async
+    cb();
   },
   signout(cb) {
     fakeAuth.isAuthenticated = false;
-    setTimeout(cb, 100);
+    // setTimeout(cb, 100);
+    cb();
   },
 };
 
