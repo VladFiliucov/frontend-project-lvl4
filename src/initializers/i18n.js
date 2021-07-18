@@ -74,7 +74,7 @@ i18n
       ru: {
         translation: {
           siteName: 'Hexlet Chat',
-          signup: 'Зерегестрироваться',
+          signup: 'Регистрация',
           signout: 'Выйти',
           login: 'Войти',
           incorrectCredentials: 'Неверные имя пользователя или пароль',
