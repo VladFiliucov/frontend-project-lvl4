@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button, Modal } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 import { useSocket } from '../contexts/socket';
 
 const DeleteConfrimation = ({ channel, show, toggleConfirmation }) => {
