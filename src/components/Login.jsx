@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
 import { Formik } from 'formik';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -52,27 +53,37 @@ const Login = () => {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <form onSubmit={handleSubmit}>
-            <input
-              type="text"
-              name="username"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.username}
-            />
-            {errors.username && touched.username && errors.username}
-            <input
-              type="password"
-              name="password"
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.password}
-            />
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formUsername">
+              <Form.Label>{t('signupPage.form.fields.username')}</Form.Label>
+              <Form.Control
+                name="username"
+                type="text"
+                placeholder={t('signupPage.form.fields.username')}
+                value={values.username}
+                onChange={handleChange}
+                isInvalid={touched.username && !!errors.username}
+                onBlur={handleBlur}
+              />
+              {errors.username && touched.username && errors.username}
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formPassword">
+              <Form.Label>{t('signupPage.form.fields.password')}</Form.Label>
+              <Form.Control
+                name="password"
+                type="password"
+                placeholder={t('signupPage.form.fields.password')}
+                value={values.password}
+                onChange={handleChange}
+                isInvalid={touched.password && !!errors.password}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.password && touched.password && errors.password}
+              </Form.Control.Feedback>
+            </Form.Group>
             {errors.password && touched.password && errors.password}
-            <button type="submit" disabled={isSubmitting}>
-              {t('login')}
-            </button>
-          </form>
+            <Button type="submit" disabled={isSubmitting}>{t('login')}</Button>
+          </Form>
         )}
       </Formik>
       {t('dontHaveAccount')}
