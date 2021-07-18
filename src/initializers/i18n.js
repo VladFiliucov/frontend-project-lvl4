@@ -73,7 +73,7 @@ i18n
       },
       ru: {
         translation: {
-          siteName: 'Hexlet-Chat',
+          siteName: 'Hexlet Chat',
           signup: 'Зерегестрироваться',
           signout: 'Выйти',
           login: 'Войти',
