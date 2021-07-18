@@ -1,13 +1,12 @@
 import React, { createContext, useContext } from 'react';
-import { io } from 'socket.io-client';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../store/messagesSlice';
 import { addChannel, deleteChannel, renameChannel } from '../store/channelsSlice';
 
 const socketContext = createContext();
 
-function useSocketProvider() {
-  const socket = io();
+function useSocketProvider(socketClient) {
+  const socket = socketClient();
   const dispatch = useDispatch();
 
   socket.on('newMessage', (msg) => {
@@ -29,8 +28,8 @@ function useSocketProvider() {
   return socket;
 }
 
-export function SocketProvider({ children }) {
-  const socket = useSocketProvider();
+export function SocketProvider({ children, socketClient }) {
+  const socket = useSocketProvider(socketClient);
 
   return (
     <socketContext.Provider value={socket}>

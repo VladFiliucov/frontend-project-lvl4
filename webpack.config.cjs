@@ -7,6 +7,7 @@ const Dotenv = require('dotenv-webpack');
 const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
+  entry: './src/init.js',
   mode,
   resolve: {
     extensions: ['.js', '.jsx'],

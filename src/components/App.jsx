@@ -19,14 +19,14 @@ import Modal from './Modal';
 import Signup from './routes/Signup';
 import LogoutButton from './LogoutButton';
 
-export default function App() {
+export default function App({ socketClient }) {
   const { t } = useTranslation();
 
   return (
     <Provider store={store}>
       <RollbarProvider config={rollbarConfig}>
         <ErrorBoundary>
-          <SocketProvider>
+          <SocketProvider socketClient={socketClient}>
             <AuthProvider>
               <Router>
                 <div>
