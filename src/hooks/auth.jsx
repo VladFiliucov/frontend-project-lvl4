@@ -49,10 +49,6 @@ function useProvideAuth() {
     signInUser(creds).then(({ status, data }) => {
       switch (status) {
         case 200:
-          setUser(data);
-          saveToken(data);
-          successCb();
-          break;
         case 201:
           setUser(data);
           saveToken(data);
@@ -75,10 +71,6 @@ function useProvideAuth() {
     signUpUser(creds).then(({ status, data }) => {
       switch (status) {
         case 201:
-          setUser(data);
-          saveToken(data);
-          successCb();
-          break;
         case 200:
           setUser(data);
           saveToken(data);
@@ -88,10 +80,10 @@ function useProvideAuth() {
           confictCb();
           break;
         default:
-          throw 'Oups';
+          throw new Error('Unknown status on signup');
       }
     }).catch((e) => {
-      console.log('Handle network errors here', e);
+      console.error('Handle network errors here', e);
     });
   });
 

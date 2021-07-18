@@ -8,7 +8,7 @@ import {
 import { Provider } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
-import { store } from '../store';
+import store from '../store';
 import rollbarConfig from '../initializers/rollbar';
 import { SocketProvider } from '../contexts/socket.js';
 import Login from './Login';

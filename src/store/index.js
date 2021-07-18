@@ -10,7 +10,7 @@ import { channelsSlice } from './channelsSlice.js';
 import { modalSlice } from './modalSlice.js';
 
 // inspired by https://redux-toolkit.js.org/tutorials/rtk-query/#add-the-service-to-your-store
-export const store = configureStore({
+const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
     // [channelsApi.reducerPath]: channelsApi.reducer,
@@ -29,3 +29,5 @@ export const store = configureStore({
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors
 // see `setupListeners` docs - takes an optional callback as the 2nd arg for customization
 setupListeners(store.dispatch);
+
+export default store;
