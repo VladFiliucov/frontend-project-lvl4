@@ -10,7 +10,7 @@ const UnremovableChannel = ({ channel, handleClick, active }) => {
 
   return (
     <>
-      <button onClick={handleClick} className={labelBtnClassNames}>
+      <button type="button" onClick={handleClick} className={labelBtnClassNames}>
         <span className="me-1">
           #
         </span>
@@ -47,8 +47,16 @@ const RemovableChannel = ({ channel, handleClick, active }) => {
           </Dropdown.Menu>
         </Dropdown>
       </div>
-      <DeleteConfrimation channel={channel} show={showDeleteConfirmation} toggleConfirmation={setShowDeleteConfirmation} />
-      <RenameChannelForm channel={channel} show={showEditChannelForm} toggleConfirmation={setShowEditChannelForm} />
+      <DeleteConfrimation
+        channel={channel}
+        show={showDeleteConfirmation}
+        toggleConfirmation={setShowDeleteConfirmation}
+      />
+      <RenameChannelForm
+        channel={channel}
+        show={showEditChannelForm}
+        toggleConfirmation={setShowEditChannelForm}
+      />
     </>
   );
 };
