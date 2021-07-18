@@ -13,7 +13,7 @@ function Home() {
 
   // TODO: if no user probably should clear state
   if (user) {
-    dispatch(fetchDataFromApi())
+    dispatch(fetchDataFromApi());
   }
 
   return (

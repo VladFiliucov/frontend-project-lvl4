@@ -17,7 +17,7 @@ const fetchData = async () => {
   return response;
 };
 
-export const fetchDataFromApi = createAsyncThunk(
+const fetchDataFromApi = createAsyncThunk(
   'data/fetchData',
   async () => {
     const { status, data, error } = await fetchData();
@@ -25,3 +25,5 @@ export const fetchDataFromApi = createAsyncThunk(
     return { status, data, error };
   },
 );
+
+export default fetchDataFromApi;

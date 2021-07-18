@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { remove } from 'lodash';
-import { fetchDataFromApi } from '../thunks/fetchData';
+import fetchDataFromApi from '../thunks/fetchData';
 
 const initialState = {
   data: [],
