@@ -73,7 +73,7 @@ i18n
       },
       ru: {
         translation: {
-          siteName: 'Чат',
+          siteName: 'Hexlet-Chat',
           signup: 'Зерегестрироваться',
           signout: 'Выйти',
           login: 'Войти',
@@ -87,9 +87,9 @@ i18n
             form: {
               cta: 'Зерегестрироваться',
               fields: {
-                username: 'Имя пользователя',
+                username: 'Ваш ник',
                 password: 'Пароль',
-                passwordConfirmation: 'Подтверждение пароля',
+                passwordConfirmation: 'Подтвердите пароль',
               },
               errors: {
                 required: 'Обязательное поле',
