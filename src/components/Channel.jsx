@@ -71,8 +71,19 @@ const Channel = ({ channel }) => {
   return (
     <li className="nav-item w-100">
       {channel.removable
-        ? <RemovableChannel channel={channel} handleClick={handleClick} active={channel.id === currentChannelId} />
-        : <UnremovableChannel channel={channel} handleClick={handleClick} active={channel.id === currentChannelId} />}
+        ? (
+          <RemovableChannel
+            channel={channel}
+            handleClick={handleClick}
+            active={channel.id === currentChannelId}
+          />
+        ) : (
+          <UnremovableChannel
+            channel={channel}
+            handleClick={handleClick}
+            active={channel.id === currentChannelId}
+          />
+        )}
     </li>
   );
 };

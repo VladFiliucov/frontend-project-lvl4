@@ -25,11 +25,13 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
     newChannelInputRef.current.focus();
   }, [newChannelInputRef]);
 
-  const allChannelNames = useSelector((state) => state.channels.data.map((channel) => channel.name));
+  const allChannelNames = useSelector(
+    (state) => state.channels.data.map((channel) => channel.name)
+  );
 
   const validationSchema = buildValidationScheema(allChannelNames, t);
 
-  const handleCloseClick = (e) => {
+  const handleCloseClick = () => {
     dispatch(toggleModal());
   };
 
@@ -38,7 +40,7 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
       <Formik
         initialValues={{ name: '' }}
         validationSchema={validationSchema}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
+        onSubmit={async (values, { resetForm }) => {
           const channel = {
             name: values.name, removable: true,
           };
