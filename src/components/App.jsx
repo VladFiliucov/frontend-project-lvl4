@@ -7,8 +7,7 @@ import {
 } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Provider as RollbarProvider } from '@rollbar/react';
-import { ErrorBoundary } from '@rollbar/react';
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { store } from '../store';
 import rollbarConfig from '../initializers/rollbar';
 import { SocketProvider } from '../contexts/socket.js';
@@ -30,13 +29,13 @@ export default function App({ socketClient }) {
             <AuthProvider>
               <Router>
                 <div>
-                  <nav className='d-flex'>
-                    <ul className='mr-auto p-2'>
+                  <nav className="d-flex">
+                    <ul className="mr-auto p-2">
                       <li>
                         <Link to="/">{t('siteName')}</Link>
                       </li>
                     </ul>
-                    <div className='p-2'>
+                    <div className="p-2">
                       <LogoutButton>
                         {t('signout')}
                       </LogoutButton>
