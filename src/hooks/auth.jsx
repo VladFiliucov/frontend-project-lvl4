@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 import axios from 'axios';
 import { useRollbar } from '@rollbar/react';
-import useToken from './useToken.js';
+import tokenHelpers from '../helpers/tokenHelpers';
 
 const authContext = createContext();
 
@@ -43,7 +43,7 @@ const fakeAuth = {
 function useProvideAuth() {
   const [user, setUser] = useState(null);
   const rollbar = useRollbar();
-  const { saveToken, getCurrentUser, logoutCurrentUser } = useToken();
+  const { saveToken, getCurrentUser, logoutCurrentUser } = tokenHelpers();
 
   const signin = (creds, successCb, unauthorizedCb) => fakeAuth.signin(() => {
     signInUser(creds).then(({ status, data }) => {

@@ -1,9 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import useToken from '../hooks/useToken.js';
+import tokenHelpers from '../helpers/tokenHelpers';
 
 const fetchData = async () => {
-  const { getCurrentUser } = useToken();
+  const { getCurrentUser } = tokenHelpers();
   const { token } = JSON.parse(getCurrentUser());
 
   const response = await axios.get('/api/v1/data', {
