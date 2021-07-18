@@ -95,7 +95,7 @@ i18n
           signupPage: {
             headline: 'Регистрация',
             form: {
-              cta: 'Зерегестрироваться',
+              cta: 'Зарегистрироваться',
               fields: {
                 username: 'Имя пользователя',
                 password: 'Пароль',
