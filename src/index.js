@@ -1,7 +1,5 @@
 // @ts-check
 import React from 'react';
-import ReactDOM from 'react-dom';
-
 import 'core-js/stable/index.js';
 import 'regenerator-runtime/runtime.js';
 
@@ -14,8 +12,4 @@ if (process.env.NODE_ENV !== 'production') {
   localStorage.debug = 'chat:*';
 }
 
-const container = document.querySelector('#chat');
-
-export default (socketClient) => {
-  ReactDOM.render(<App socketClient={socketClient} />, container);
-};
+export default (socketClient) => <App socketClient={socketClient} />
