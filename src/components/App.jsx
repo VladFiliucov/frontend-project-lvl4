@@ -35,9 +35,6 @@ export default function App({ socketClient }) {
                       <li>
                         <Link to="/">{t('siteName')}</Link>
                       </li>
-                      <li>
-                        <Link to="/signup">{t('signup')}</Link>
-                      </li>
                     </ul>
                     <div className='p-2'>
                       <LogoutButton>
