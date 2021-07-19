@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { nanoid } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useSocket } from '../contexts/socket';
 import { useAuth } from '../hooks/auth';
 
@@ -26,7 +26,7 @@ const MessageForm = () => {
   }, [currentChannelId]);
 
   return (
-    <div>
+    <div className="align-self-end ml-3">
       <Formik
         initialValues={{ message: '' }}
         validationSchema={messageSchemaValidation}
@@ -56,19 +56,23 @@ const MessageForm = () => {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <form onSubmit={handleSubmit} autoComplete="off">
-            <input
-              type="text"
-              name="message"
-              data-testid="new-message"
-              ref={inputRef}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              value={values.message}
-            />
-            {errors.message && touched.message && errors.message}
+          <Form onSubmit={handleSubmit} autoComplete="off">
+            <Form.Group className="mb-3" controlId="formMessage">
+              <Form.Control
+                type="text-area"
+                name="message"
+                data-testid="new-message"
+                onBlur={handleBlur}
+                value={values.message}
+                onChange={handleChange}
+                ref={inputRef}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors.message && touched.message && errors.message}
+              </Form.Control.Feedback>
+            </Form.Group>
             <Button type="submit" disabled={isSubmitting}>{t('chatPage.messageForm.actions.submit')}</Button>
-          </form>
+          </Form>
         )}
       </Formik>
     </div>

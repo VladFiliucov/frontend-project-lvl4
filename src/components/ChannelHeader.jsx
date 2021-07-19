@@ -15,7 +15,7 @@ const ChannelHeader = () => {
     <div className="d-flex justify-content-between mb-2 ps-4 pe-2">
       <span>{t('chatPage.headline')}</span>
       <button onClick={handleClick} type="button" className="p-0 text-primary btn btn-group-vertical">
-        <span className="visually-hidden">
+        <span className="visually-hidden h4 mr-2">
           +
         </span>
       </button>

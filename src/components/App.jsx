@@ -28,10 +28,10 @@ export default function App({ socketClient }) {
           <SocketProvider socketClient={socketClient}>
             <AuthProvider>
               <Router>
-                <div>
-                  <nav className="d-flex">
+                <div className="d-flex flex-column h-100">
+                  <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
                     <ul className="mr-auto p-2">
-                      <li>
+                      <li className="list-group-item">
                         <Link to="/">{t('siteName')}</Link>
                       </li>
                     </ul>
