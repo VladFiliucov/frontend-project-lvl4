@@ -21,31 +21,12 @@ const signUpUser = (formData) => axios({
   data: formData,
 });
 
-const fakeAuth = {
-  isAuthenticated: false,
-  signin(cb) {
-    fakeAuth.isAuthenticated = true;
-    // setTimeout(cb, 100); // fake async
-    cb();
-  },
-  signup(cb) {
-    fakeAuth.isAuthenticated = true;
-    // setTimeout(cb, 100); // fake async
-    cb();
-  },
-  signout(cb) {
-    fakeAuth.isAuthenticated = false;
-    // setTimeout(cb, 100);
-    cb();
-  },
-};
-
 function useProvideAuth() {
   const [user, setUser] = useState(null);
   const rollbar = useRollbar();
   const { saveToken, getCurrentUser, logoutCurrentUser } = tokenHelpers();
 
-  const signin = (creds, successCb, unauthorizedCb) => fakeAuth.signin(() => {
+  const signin = (creds, successCb, unauthorizedCb) => {
     signInUser(creds).then(({ status, data }) => {
       switch (status) {
         case 200:
@@ -65,9 +46,9 @@ function useProvideAuth() {
 
       rollbar.error('Error signing in user', error, { username: parsedCredentials.username });
     });
-  });
+  };
 
-  const signup = (creds, successCb, confictCb) => fakeAuth.signup(() => {
+  const signup = (creds, successCb, confictCb) => {
     signUpUser(creds).then(({ status, data }) => {
       switch (status) {
         case 201:
@@ -85,13 +66,13 @@ function useProvideAuth() {
     }).catch((e) => {
       console.error('Handle network errors here', e);
     });
-  });
+  };
 
-  const signout = (cb) => fakeAuth.signout(() => {
+  const signout = (cb) => {
     setUser(null);
     logoutCurrentUser();
     cb();
-  });
+  };
 
   return {
     user,
