@@ -16,9 +16,6 @@ const ChannelHeader = () => {
       <span>{t('chatPage.headline')}</span>
       <button onClick={handleClick} type="button" className="p-0 text-primary btn btn-group-vertical">
         <PlusIcon />
-        <span className="visually-hidden">
-          +
-        </span>
       </button>
     </div>
   );
