@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext } from 'react';
 import axios from 'axios';
 import { useRollbar } from '@rollbar/react';
+import { API_LOGIN_ENDPOINT, API_SIGNUP_ENDPOINT } from '../constants';
 import tokenHelpers from '../helpers/tokenHelpers';
 
 const authContext = createContext();
@@ -8,7 +9,7 @@ const authContext = createContext();
 const signInUser = (formData) => axios({
   method: 'post',
   headers: { 'content-type': 'application/json' },
-  url: '/api/v1/login',
+  url: API_LOGIN_ENDPOINT,
   validateStatus: (status) => [200, 201, 401].includes(status),
   data: formData,
 });
@@ -16,7 +17,7 @@ const signInUser = (formData) => axios({
 const signUpUser = (formData) => axios({
   method: 'post',
   headers: { 'content-type': 'application/json' },
-  url: '/api/v1/signup',
+  url: API_SIGNUP_ENDPOINT,
   validateStatus: (status) => [200, 201, 409].includes(status),
   data: formData,
 });

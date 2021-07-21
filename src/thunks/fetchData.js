@@ -1,12 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { API_DATA_ENDPOINT } from '../constants';
 import tokenHelpers from '../helpers/tokenHelpers';
 
 const fetchData = async () => {
   const { getCurrentUser } = tokenHelpers();
   const { token } = JSON.parse(getCurrentUser());
 
-  const response = await axios.get('/api/v1/data', {
+  const response = await axios.get(API_DATA_ENDPOINT, {
     headers: {
       Authorization: `Bearer ${token}`,
       'content-type': 'application/json',
