@@ -13,21 +13,25 @@ const Messages = () => {
   if (error) return <h1>There was an error fetching data</h1>;
 
   return (
-    <div className="d-flex flex-column align-items-stretch">
-      <h2 className="p-2 bd-highlight">{t('chatPage.messages')}</h2>
-      <div className="flex-grow-1 overflow-auto px-5">
-        {messages.map((message) => (
-          <div key={`message-${message.id}`} className="p-1 bd-highlight">
-            <strong>
-              {message.userId}
-              :
-              {' '}
-              {message.msg}
-            </strong>
-          </div>
-        ))}
+    <div className="col p-0 h-100">
+      <div className="d-flex flex-column h-100">
+        <div className="bg-light mb-4 p-3 shadow-sm small">
+          <h2 className="p-2 bd-highlight">{t('chatPage.messages')}</h2>
+        </div>
+        <div className="chat-messages overflow-auto px-5">
+          {messages.map((message) => (
+            <div key={`message-${message.id}`} className="text-break mb-2">
+              <strong>
+                {message.userId}
+                :
+                {' '}
+                {message.msg}
+              </strong>
+            </div>
+          ))}
+        </div>
+        <MessageForm />
       </div>
-      <MessageForm />
     </div>
   );
 };

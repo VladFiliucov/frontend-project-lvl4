@@ -5,7 +5,7 @@ import Messages from './Messages';
 import Channel from './Channel';
 import ChannelHeader from './ChannelHeader';
 
-const Channels = () => {
+const Chat = () => {
   const { data, error, loading } = useSelector((state) => state.channels);
 
   if (loading) return <h1>Fetching channels...</h1>;
@@ -26,4 +26,4 @@ const Channels = () => {
   );
 };
 
-export default Channels;
+export default Chat;

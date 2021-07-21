@@ -26,7 +26,7 @@ const MessageForm = () => {
   }, [currentChannelId]);
 
   return (
-    <div className="align-self-end ml-3">
+    <div className="mt-auto px-5 py-3">
       <Formik
         initialValues={{ message: '' }}
         validationSchema={messageSchemaValidation}
