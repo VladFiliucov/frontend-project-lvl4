@@ -26,7 +26,7 @@ const MessageForm = () => {
     // as while modal is active rest of the page is unavailable and ref.focus fires nowhere
     const focusTimeout = setTimeout(() => {
       inputRef.current.focus();
-    }, 0);
+    }, 50);
     return () => clearTimeout(focusTimeout);
   }, [currentChannelId]);
 
