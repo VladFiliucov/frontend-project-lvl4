@@ -22,7 +22,12 @@ const MessageForm = () => {
   const messageSchemaValidation = getMessageSchemaValidation(t);
 
   useEffect(() => {
-    inputRef.current.focus();
+    // need timeout here to give time for CreateChannel modal to unmount
+    // as while modal is active rest of the page is unavailable and ref.focus fires nowhere
+    const focusTimeout = setTimeout(() => {
+      inputRef.current.focus();
+    }, 0);
+    return () => clearTimeout(focusTimeout);
   }, [currentChannelId]);
 
   return (
