@@ -5,34 +5,31 @@ import { addChannel, deleteChannel, renameChannel } from '../store/channelsSlice
 
 const socketContext = createContext();
 
-function useSocketProvider(socketClient) {
-  const socket = socketClient;
+export function SocketProvider({ children, listeners, emitters }) {
   const dispatch = useDispatch();
 
-  socket.on('newMessage', (msg) => {
-    dispatch(addMessage(msg));
+  const {
+    onNewMessage, onNewChannel, onRemoveChannel, onRenameChannel,
+  } = listeners;
+
+  onNewMessage((newMessage) => {
+    dispatch(addMessage(newMessage));
   });
 
-  socket.on('newChannel', (channel) => {
-    dispatch(addChannel(channel));
+  onNewChannel((newChannel) => {
+    dispatch(addChannel(newChannel));
   });
 
-  socket.on('removeChannel', ({ id }) => {
+  onRemoveChannel(({ id }) => {
     dispatch(deleteChannel(id));
   });
 
-  socket.on('renameChannel', (channel) => {
+  onRenameChannel((channel) => {
     dispatch(renameChannel(channel));
   });
 
-  return socket;
-}
-
-export function SocketProvider({ children, socketClient }) {
-  const socket = useSocketProvider(socketClient);
-
   return (
-    <socketContext.Provider value={socket}>
+    <socketContext.Provider value={emitters}>
       {children}
     </socketContext.Provider>
   );

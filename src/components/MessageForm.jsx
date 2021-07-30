@@ -14,7 +14,7 @@ const getMessageSchemaValidation = (t) => Yup.object().shape({
 
 const MessageForm = () => {
   const inputRef = useRef(null);
-  const socket = useSocket();
+  const { sendNewMessage } = useSocket();
   const auth = useAuth();
   const { t } = useTranslation();
   const { currentChannelId } = useSelector((state) => state.channels);
@@ -43,7 +43,8 @@ const MessageForm = () => {
           const message = {
             id: nanoid(), userId: currentUser.id, channelId: currentChannelId, msg: formMessage,
           };
-          socket.emit('newMessage', message, ({ status }) => {
+
+          sendNewMessage(message, ({ status }) => {
             if (status === 'ok') {
               resetForm();
             }

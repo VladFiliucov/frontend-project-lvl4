@@ -17,7 +17,7 @@ const buildValidationScheema = (exisingChannels, t) => {
 };
 
 const CreateChannelForm = ({ newChannelInputRef }) => {
-  const socket = useSocket();
+  const { createChannel } = useSocket();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -44,7 +44,7 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
           const channel = {
             name: values.name, removable: true,
           };
-          socket.emit('newChannel', channel, (response) => {
+          createChannel(channel, (response) => {
             const { status, data } = response;
             if (status === 'ok') {
               resetForm();

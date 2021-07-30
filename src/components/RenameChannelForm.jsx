@@ -12,7 +12,7 @@ const buildValidationScheema = (exisingChannels) => (
 );
 
 const RenameChannelForm = ({ channel, show, toggleConfirmation }) => {
-  const socket = useSocket();
+  const { renameChannel } = useSocket();
   const inputRef = useRef(null);
   const handleClose = () => toggleConfirmation(false);
 
@@ -44,7 +44,7 @@ const RenameChannelForm = ({ channel, show, toggleConfirmation }) => {
             const payload = {
               name: values.name, id: channel.id,
             };
-            socket.emit('renameChannel', payload, (response) => {
+            renameChannel(payload, (response) => {
               const { status } = response;
               if (status === 'ok') {
                 resetForm();

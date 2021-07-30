@@ -18,14 +18,30 @@ import Modal from './Modal';
 import Signup from './routes/Signup';
 import LogoutButton from './LogoutButton';
 
+const getSocketListeners = (socketClient) => ({
+  onNewMessage: (cb) => socketClient.on('newMessage', cb),
+  onNewChannel: (cb) => socketClient.on('newChannel', cb),
+  onRemoveChannel: (cb) => socketClient.on('removeChannel', cb),
+  onRenameChannel: (cb) => socketClient.on('renameChannel', cb),
+});
+
+const getSocketEmitters = (socketClient) => ({
+  sendNewMessage: (msg, cb) => socketClient.emit('newMessage', msg, cb),
+  createChannel: (payload, cb) => socketClient.emit('newChannel', payload, cb),
+  renameChannel: (payload, cb) => socketClient.emit('renameChannel', payload, cb),
+  removeChannel: (payload, cb) => socketClient.emit('removeChannel', payload, cb),
+});
+
 export default function App({ socketClient }) {
   const { t } = useTranslation();
+  const socketListeners = getSocketListeners(socketClient);
+  const socketEmitters = getSocketEmitters(socketClient);
 
   return (
     <Provider store={store}>
       <RollbarProvider config={rollbarConfig}>
         <ErrorBoundary>
-          <SocketProvider socketClient={socketClient}>
+          <SocketProvider listeners={socketListeners} emitters={socketEmitters}>
             <AuthProvider>
               <Router>
                 <div className="d-flex flex-column h-100">

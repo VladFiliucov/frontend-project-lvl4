@@ -3,15 +3,14 @@ import { Button, Modal } from 'react-bootstrap';
 import { useSocket } from '../contexts/socket';
 
 const DeleteConfrimation = ({ channel, show, toggleConfirmation }) => {
-  const socket = useSocket();
+  const { removeChannel } = useSocket();
   const handleClose = () => toggleConfirmation(false);
 
   const handleConfirmDeletion = () => {
-    socket.emit('removeChannel', { id: channel.id }, (response) => {
+    removeChannel({ id: channel.id }, (response) => {
       const { status } = response;
       if (status === 'ok') {
-        // deletion is happening in socket provider. What should I do here?
-        // dispatch(deleteChannel(channel.id));
+        // TODO: Any UI/UX changes?
       }
       // TODO: if error - handle
     });
