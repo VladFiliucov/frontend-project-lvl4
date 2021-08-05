@@ -5,6 +5,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { useAuth } from '../hooks/auth';
+import routes from '../routes';
 
 const getSigninSchema = (translation) => Yup.object().shape({
   username: Yup.string()
@@ -18,6 +19,7 @@ const Login = () => {
   const history = useHistory();
   const location = useLocation();
   const auth = useAuth();
+  const { signupPath } = routes;
   const { t } = useTranslation();
 
   const signinSchema = getSigninSchema(t);
@@ -87,7 +89,7 @@ const Login = () => {
         )}
       </Formik>
       {t('dontHaveAccount')}
-      <Link to="/signup">
+      <Link to={signupPath()}>
         {t('signup')}
       </Link>
     </div>

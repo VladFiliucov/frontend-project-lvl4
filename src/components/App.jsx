@@ -11,6 +11,7 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import store from '../store';
 import rollbarConfig from '../initializers/rollbar';
 import { SocketProvider } from '../contexts/socket';
+import routes from '../routes';
 import Login from './Login';
 import Home from './routes/Home';
 import { AuthProvider } from '../hooks/auth';
@@ -36,6 +37,7 @@ export default function App({ socketClient }) {
   const { t } = useTranslation();
   const socketListeners = getSocketListeners(socketClient);
   const socketEmitters = getSocketEmitters(socketClient);
+  const { loginPath, homePath, signupPath } = routes;
 
   return (
     <Provider store={store}>
@@ -59,13 +61,18 @@ export default function App({ socketClient }) {
                   </nav>
 
                   <Switch>
-                    <Route path="/login">
+                    <Route
+                      path={
+                        /* minor performance penalty for calling func inside render. */
+                        loginPath()
+                      }
+                    >
                       <Login />
                     </Route>
-                    <Route exact path="/">
+                    <Route exact path={homePath()}>
                       <Home />
                     </Route>
-                    <Route exact path="/signup">
+                    <Route exact path={signupPath()}>
                       <Signup />
                     </Route>
                     <Route path="*">
