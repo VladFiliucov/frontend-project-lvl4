@@ -91,5 +91,11 @@ export default function App({ socketClient }) {
 }
 
 function NoMatch() {
-  return <h1>404</h1>;
+  const { t } = useTranslation();
+
+  return (
+    <h1>
+      {t('notFoundPage.headline')}
+    </h1>
+  );
 }

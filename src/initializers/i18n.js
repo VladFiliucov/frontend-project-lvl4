@@ -23,6 +23,9 @@ export default async () => {
             signin: {
               required: 'This field is required',
             },
+            notFoundPage: {
+              headline: '404 Page not found',
+            },
             signupPage: {
               headline: 'Registration',
               form: {
@@ -73,6 +76,9 @@ export default async () => {
             signout: 'Выйти',
             login: 'Войти',
             dontHaveAccount: 'Нет аккаунта? - ',
+            notFoundPage: {
+              headline: '404 Страница не найдена',
+            },
             signinPage: {
               form: {
                 cta: 'Зерегестрироваться',
