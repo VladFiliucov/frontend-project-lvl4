@@ -1,14 +1,14 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { toggleModal } from '../store/modalSlice';
+import { showModal } from '../store/modalSlice';
 
 const ChannelHeader = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const handleClick = () => {
-    dispatch(toggleModal());
+    dispatch(showModal({ type: 'NewChannelModal' }));
   };
 
   return (
