@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next';
 import { Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import CreateChannelForm from './CreateChannelForm';
-import { toggleModal } from '../store/modalSlice';
+import { hideModal } from '../store/modalSlice';
 
 const CreateChannel = ({ newChannelInputRef, isOpened }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    dispatch(toggleModal());
+    dispatch(hideModal());
   };
 
   return (

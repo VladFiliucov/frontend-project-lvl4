@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { useSocket } from '../contexts/socket';
-import { toggleModal } from '../store/modalSlice';
+import { hideModal } from '../store/modalSlice';
 import { setCurrentChannelId } from '../store/channelsSlice.js';
 
 const buildValidationScheema = (exisingChannels, t) => {
@@ -32,7 +32,7 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
   const validationSchema = buildValidationScheema(allChannelNames, t);
 
   const handleCloseClick = () => {
-    dispatch(toggleModal());
+    dispatch(hideModal());
   };
 
   return (
@@ -48,7 +48,7 @@ const CreateChannelForm = ({ newChannelInputRef }) => {
             const { status, data } = response;
             if (status === 'ok') {
               resetForm();
-              dispatch(toggleModal());
+              dispatch(hideModal());
               dispatch(setCurrentChannelId(data.id));
             }
             // TODO: if error - handle

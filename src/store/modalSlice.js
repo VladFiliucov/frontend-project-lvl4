@@ -10,10 +10,6 @@ export const modalSlice = createSlice({
   name: 'modal',
   initialState,
   reducers: {
-    toggleModal: (state) => {
-      // eslint-disable-next-line no-param-reassign
-      state.isOpened = !state.isOpened;
-    },
     showModal: (_, action) => ({
       isOpened: true,
       type: action.payload.type,
@@ -27,4 +23,4 @@ export const modalSlice = createSlice({
   },
 });
 
-export const { toggleModal, showModal, hideModal } = modalSlice.actions;
+export const { showModal, hideModal } = modalSlice.actions;
