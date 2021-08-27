@@ -31,20 +31,21 @@ export const channelsSlice = createSlice({
       channel.name = action.payload.name;
     },
   },
-  extraReducers: {
-    [fetchDataFromApi.fulfilled]: (state, action) => {
-      state.data = action.payload.data.channels;
-      state.currentChannelId = action.payload.data.currentChannelId;
-      state.error = null;
-      state.loading = false;
-    },
-    [fetchDataFromApi.pending]: (state) => {
-      state.loading = true;
-    },
-    [fetchDataFromApi.rejected]: (state, action) => {
-      state.error = action.error;
-      state.loading = false;
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchDataFromApi.fulfilled, (state, action) => {
+        state.data = action.payload.data.channels;
+        state.currentChannelId = action.payload.data.currentChannelId;
+        state.error = null;
+        state.loading = false;
+      })
+      .addCase(fetchDataFromApi.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchDataFromApi.rejected, (state, action) => {
+        state.error = action.error;
+        state.loading = false;
+      });
   },
   /* eslint-enable no-param-reassign */
 });

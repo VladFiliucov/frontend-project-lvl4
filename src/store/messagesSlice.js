@@ -35,22 +35,23 @@ export const messagesSlice = createSlice({
       state.data.push(message);
     },
   },
-  extraReducers: {
-    [fetchDataFromApi.fulfilled]: (state, action) => {
-      state.data = action.payload.data.messages;
-      state.error = null;
-      state.loading = false;
-    },
-    [fetchDataFromApi.pending]: (state) => {
-      state.loading = true;
-    },
-    [fetchDataFromApi.rejected]: (state, action) => {
-      state.error = action.error;
-      state.loading = false;
-    },
-    [deleteChannel]: (state, action) => {
-      remove(state.data, (msg) => msg.channelId === action.payload);
-    },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchDataFromApi.fulfilled, (state, action) => {
+        state.data = action.payload.data.messages;
+        state.error = null;
+        state.loading = false;
+      })
+      .addCase(fetchDataFromApi.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchDataFromApi.rejected, (state, action) => {
+        state.error = action.error;
+        state.loading = false;
+      })
+      .addCase(deleteChannel, (state, action) => {
+        remove(state.data, (msg) => msg.channelId === action.payload);
+      });
   },
   /* eslint-enable no-param-reassign */
 });
