@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import CreateChannelForm from './CreateChannelForm';
 import { hideModal } from '../store/modalSlice';
+import { DeleteConfrimationBody, DeleteConfrimationFooter } from './DeleteConfirmation';
 
 const ModalContents = () => {
   const { t } = useTranslation();
@@ -19,9 +20,18 @@ const ModalContents = () => {
     NewChannelModal: {
       modalTitle: t('chatPage.form.title'),
       modalBodyComponent: CreateChannelForm,
-      modalProps: {
+      modalBodyProps: {
         newChannelInputRef,
       },
+      modalFooterComponent: null,
+      modalFooterProps: null,
+    },
+    DeleteChannelConfirmationModal: {
+      modalTitle: 'Delete channel',
+      modalBodyComponent: DeleteConfrimationBody,
+      modalBodyProps: {},
+      modalFooterComponent: DeleteConfrimationFooter,
+      modalFooterProps: { ...options },
     },
   };
 
@@ -35,8 +45,16 @@ const ModalContents = () => {
         <Modal.Title>{currentModal.modalTitle}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <currentModal.modalBodyComponent {...currentModal.modalProps} />
+        <currentModal.modalBodyComponent {...currentModal.modalBodyProps} />
       </Modal.Body>
+      {
+        currentModal.modalFooterComponent
+        && (
+        <Modal.Footer>
+          <currentModal.modalFooterComponent {...currentModal.modalFooterProps} />
+        </Modal.Footer>
+        )
+      }
     </Modal>
   );
 };

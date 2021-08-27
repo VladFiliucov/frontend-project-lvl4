@@ -1,16 +1,21 @@
 import React from 'react';
-import { Button, Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { useSocket } from '../contexts/socket';
+import { hideModal } from '../store/modalSlice';
 
-const DeleteConfrimation = ({ channel, show, toggleConfirmation }) => {
+export const DeleteConfrimationBody = () => <p>Are you sure!?</p>;
+
+export const DeleteConfrimationFooter = ({ channel }) => {
+  const dispatch = useDispatch();
   const { removeChannel } = useSocket();
-  const handleClose = () => toggleConfirmation(false);
+  const handleClose = () => dispatch(hideModal());
 
   const handleConfirmDeletion = () => {
     removeChannel({ id: channel.id }, (response) => {
       const { status } = response;
       if (status === 'ok') {
-        // TODO: Any UI/UX changes?
+        handleClose();
       }
       // TODO: if error - handle
     });
@@ -18,22 +23,12 @@ const DeleteConfrimation = ({ channel, show, toggleConfirmation }) => {
 
   return (
     <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Delete channel</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure!?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button variant="primary" onClick={handleConfirmDeletion}>
-            Delete
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      <Button variant="secondary" onClick={handleClose}>
+        Cancel
+      </Button>
+      <Button variant="primary" onClick={handleConfirmDeletion}>
+        Delete
+      </Button>
     </>
   );
 };
-
-export default DeleteConfrimation;
