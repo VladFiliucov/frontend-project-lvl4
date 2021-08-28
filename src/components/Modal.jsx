@@ -53,12 +53,14 @@ const ModalContents = () => {
         <Modal.Title>{currentModal.modalTitle}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <currentModal.modalBodyComponent {...currentModal.modalBodyProps} />
       </Modal.Body>
       {
         currentModal.modalFooterComponent
         && (
         <Modal.Footer>
+          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <currentModal.modalFooterComponent {...currentModal.modalFooterProps} />
         </Modal.Footer>
         )
