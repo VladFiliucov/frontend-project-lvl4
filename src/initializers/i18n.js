@@ -67,6 +67,19 @@ export default async () => {
                 },
               },
             },
+            modals: {
+              deleteConfirmation: {
+                title: 'Delete channel',
+                confirmationMessage: 'Are you sure about that?',
+                actions: {
+                  cancel: 'Cancel',
+                  submit: 'Delete',
+                },
+              },
+              renameChannel: {
+                title: 'Rename channel',
+              },
+            },
           },
         },
         ru: {
@@ -132,6 +145,19 @@ export default async () => {
                 actions: {
                   submit: 'Отправить',
                 },
+              },
+            },
+            modals: {
+              deleteConfirmation: {
+                title: 'Удалить канал',
+                confirmationMessage: 'Вы уверены?',
+                actions: {
+                  cancel: 'Отменить',
+                  submit: 'Удалить',
+                },
+              },
+              renameChannel: {
+                title: 'Переименовать канал',
               },
             },
           },

@@ -28,14 +28,14 @@ const ModalContents = () => {
       modalFooterProps: null,
     },
     DeleteChannelConfirmationModal: {
-      modalTitle: 'Delete channel',
+      modalTitle: t('modals.deleteConfirmation.title'),
       modalBodyComponent: DeleteConfrimationBody,
       modalBodyProps: {},
       modalFooterComponent: DeleteConfrimationFooter,
       modalFooterProps: { ...options },
     },
     RenameChannelModal: {
-      modalTitle: 'Rename channel',
+      modalTitle: t('modals.renameChannel.title'),
       modalBodyComponent: RenameChannelForm,
       modalBodyProps: { ...options },
       modalFooterComponent: null,
