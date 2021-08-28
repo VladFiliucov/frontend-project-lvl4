@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { getMessagesForChannel } from '../store/messagesSlice';
@@ -8,6 +8,13 @@ const Messages = () => {
   const { error, loading } = useSelector((state) => state.messages);
   const { t } = useTranslation();
   const messages = useSelector(getMessagesForChannel);
+  const [lastMessage] = messages.slice(-1);
+
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    if (lastMessage) scrollRef.current.scrollIntoView();
+  }, [lastMessage]);
 
   if (loading) return <h1>Fetching data...</h1>;
   if (error) return <h1>There was an error fetching data</h1>;
@@ -21,7 +28,7 @@ const Messages = () => {
         <div className="chat-messages overflow-auto px-5">
           {messages.map((message) => (
             <div key={`message-${message.id}`} className="text-break mb-2">
-              <strong>
+              <strong ref={message.id === lastMessage.id ? scrollRef : null}>
                 {message.userId}
                 :
                 {' '}
