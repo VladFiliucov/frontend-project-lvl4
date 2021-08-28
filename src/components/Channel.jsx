@@ -1,9 +1,8 @@
 import { Dropdown } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentChannelId } from '../store/channelsSlice';
 import { showModal } from '../store/modalSlice';
-import RenameChannelForm from './RenameChannelForm';
 
 const UnremovableChannel = ({ channel, handleClick, active }) => {
   const labelBtnClassNames = `w-100 rounded-0 text-start btn ${active && 'btn-secondary'}`;
@@ -23,12 +22,11 @@ const UnremovableChannel = ({ channel, handleClick, active }) => {
 const RemovableChannel = ({ channel, handleClick, active }) => {
   const dispatch = useDispatch();
   const labelBtnClassNames = `w-100 rounded-0 text-start text-truncate btn ${active && 'btn-secondary'}`;
-  const [showEditChannelForm, setShowEditChannelForm] = useState(false);
   const handleDeletion = () => {
-    dispatch(showModal({ type: 'DeleteChannelConfirmationModal', options: { channel } }))
+    dispatch(showModal({ type: 'DeleteChannelConfirmationModal', options: { channel } }));
   };
   const handleRenaming = () => {
-    setShowEditChannelForm(true);
+    dispatch(showModal({ type: 'RenameChannelModal', options: { channel } }));
   };
 
   return (
@@ -47,11 +45,6 @@ const RemovableChannel = ({ channel, handleClick, active }) => {
           </Dropdown.Menu>
         </Dropdown>
       </div>
-      <RenameChannelForm
-        channel={channel}
-        show={showEditChannelForm}
-        toggleConfirmation={setShowEditChannelForm}
-      />
     </>
   );
 };

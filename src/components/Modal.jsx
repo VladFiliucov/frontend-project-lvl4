@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import CreateChannelForm from './CreateChannelForm';
 import { hideModal } from '../store/modalSlice';
 import { DeleteConfrimationBody, DeleteConfrimationFooter } from './DeleteConfirmation';
+import RenameChannelForm from './RenameChannelForm';
 
 const ModalContents = () => {
   const { t } = useTranslation();
@@ -32,6 +33,13 @@ const ModalContents = () => {
       modalBodyProps: {},
       modalFooterComponent: DeleteConfrimationFooter,
       modalFooterProps: { ...options },
+    },
+    RenameChannelModal: {
+      modalTitle: 'Rename channel',
+      modalBodyComponent: RenameChannelForm,
+      modalBodyProps: { ...options },
+      modalFooterComponent: null,
+      modalFooterProps: null,
     },
   };
 
