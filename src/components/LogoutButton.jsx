@@ -1,20 +1,18 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
-import { logoutSuccess } from '../store/currentUserSlice';
+import { useAuth } from '../contexts/auth';
 
 const LogoutButton = ({ children }) => {
-  const loggedIn = useSelector((state) => state.currentUser.details);
+  const { currentUser, logoutCurrentUser } = useAuth();
   const history = useHistory();
-  const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(logoutSuccess());
+    logoutCurrentUser();
     history.push('/login');
   };
 
-  if (!loggedIn) return null;
+  if (!currentUser) return null;
 
   return (
     <Button onClick={handleClick}>

@@ -1,22 +1,23 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Chat from '../Chat';
 import RedirectToLogin from './RedirectToLogin';
 import fetchDataFromApi from '../../thunks/fetchData';
+import { useAuth } from '../../contexts/auth';
 
 function Home() {
   const dispatch = useDispatch();
-  const { details: userDetails } = useSelector((state) => state.currentUser);
+  const { currentUser } = useAuth();
 
   // TODO: if no user probably should clear state
-  if (userDetails) {
-    dispatch(fetchDataFromApi());
+  if (currentUser) {
+    dispatch(fetchDataFromApi(currentUser.token));
   }
 
   return (
     <Route
-      render={({ location }) => (userDetails ? (
+      render={({ location }) => (currentUser ? (
         <Chat />
       ) : (
         <RedirectToLogin location={location} />

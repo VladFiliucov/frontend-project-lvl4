@@ -1,15 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import 'regenerator-runtime/runtime.js';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
 import routes from '../routes';
 
-const fetchData = async () => {
-  const { details } = useSelector((state) => state.currentUser);
-
+const fetchData = async (token) => {
   const response = await axios.get(routes.dataEndpoint(), {
     headers: {
-      Authorization: `Bearer ${details.token}`,
+      Authorization: `Bearer ${token}`,
       'content-type': 'application/json',
     },
     validateStatus: (status) => [200, 401].includes(status),
@@ -20,8 +17,8 @@ const fetchData = async () => {
 
 const fetchDataFromApi = createAsyncThunk(
   'data/fetchData',
-  async () => {
-    const { status, data, error } = await fetchData();
+  async (token) => {
+    const { status, data, error } = await fetchData(token);
 
     return { status, data, error };
   },

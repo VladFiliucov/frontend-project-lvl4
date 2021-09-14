@@ -4,11 +4,10 @@ import { Formik } from 'formik';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
 import { useRollbar } from '@rollbar/react';
 import { signInUser } from '../api';
 import routes from '../routes';
-import { loginSuccess } from '../store/currentUserSlice';
+import { useAuth } from '../contexts/auth';
 
 const getSigninSchema = (translation) => Yup.object().shape({
   username: Yup.string()
@@ -23,7 +22,7 @@ const Login = () => {
   const location = useLocation();
   const { signupPath } = routes;
   const { t } = useTranslation();
-  const dispatch = useDispatch();
+  const { loginCurrentUser } = useAuth();
   const rollbar = useRollbar();
 
   const signinSchema = getSigninSchema(t);
@@ -42,7 +41,7 @@ const Login = () => {
             switch (status) {
               case 200:
               case 201:
-                dispatch(loginSuccess(data));
+                loginCurrentUser(data);
                 // eslint-disable-next-line
                 const { from } = location.state || { from: { pathname: '/' } };
                 setAuthError(false);

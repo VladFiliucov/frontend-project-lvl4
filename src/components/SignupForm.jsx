@@ -4,10 +4,9 @@ import { Alert, Form, Button } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import { signUpUser } from '../api';
 import SignupFormWrapper from './SignupFormWrapper';
-import { loginSuccess } from '../store/currentUserSlice';
+import { useAuth } from '../contexts/auth';
 
 const getSignupSchema = (translation) => Yup.object().shape({
   username: Yup.string()
@@ -25,7 +24,7 @@ const getSignupSchema = (translation) => Yup.object().shape({
 const SignupForm = () => {
   const [userExistsError, setUserExistsError] = useState(false);
   const history = useHistory();
-  const dispatch = useDispatch();
+  const { loginCurrentUser } = useAuth();
   const location = useLocation();
   const { t } = useTranslation();
 
@@ -48,7 +47,7 @@ const SignupForm = () => {
             switch (status) {
               case 201:
               case 200:
-                dispatch(loginSuccess(data));
+                loginCurrentUser(data);
                 // eslint-disable-next-line
             const { from } = location.state || { from: { pathname: '/' } };
                 setUserExistsError(false);
