@@ -11,4 +11,7 @@ export default {
   homePath: () => '/',
   loginPath: () => '/login',
   signupPath: () => '/signup',
+  loginEndpoint: () => 'api/v1/login',
+  signupEndpoint: () => '/api/v1/signup',
+  dataEndpoint: () => '/api/v1/data',
 };

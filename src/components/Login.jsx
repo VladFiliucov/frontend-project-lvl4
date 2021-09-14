@@ -4,8 +4,11 @@ import { Formik } from 'formik';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import { useAuth } from '../hooks/auth';
+import { useDispatch } from 'react-redux';
+import { useRollbar } from '@rollbar/react';
+import { signInUser } from '../api';
 import routes from '../routes';
+import { loginSuccess } from '../store/currentUserSlice';
 
 const getSigninSchema = (translation) => Yup.object().shape({
   username: Yup.string()
@@ -18,9 +21,10 @@ const Login = () => {
   const [authError, setAuthError] = useState(false);
   const history = useHistory();
   const location = useLocation();
-  const auth = useAuth();
   const { signupPath } = routes;
   const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const rollbar = useRollbar();
 
   const signinSchema = getSigninSchema(t);
 
@@ -34,12 +38,26 @@ const Login = () => {
         onSubmit={async (values, { setSubmitting }) => {
           const creds = JSON.stringify(values, null, 2);
 
-          auth.signin(creds, () => {
-            const { from } = location.state || { from: { pathname: '/' } };
-            setAuthError(false);
-            history.replace(from);
-          }, () => {
-            setAuthError(true);
+          signInUser(creds).then(({ status, data }) => {
+            switch (status) {
+              case 200:
+              case 201:
+                dispatch(loginSuccess(data));
+                // eslint-disable-next-line
+                const { from } = location.state || { from: { pathname: '/' } };
+                setAuthError(false);
+                history.replace(from);
+                break;
+              case 401:
+                setAuthError(true);
+                break;
+              default:
+                throw new Error('Error on signin');
+            }
+          }).catch((error) => {
+            const parsedCredentials = JSON.parse(creds);
+
+            rollbar.error('Error signing in user', error, { username: parsedCredentials.username });
           });
 
           setSubmitting(false);

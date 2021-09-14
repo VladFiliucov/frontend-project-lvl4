@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button, Form } from 'react-bootstrap';
 import { useSocket } from '../contexts/socket';
-import { useAuth } from '../hooks/auth';
+import { useAuth } from '../contexts/auth';
 
 const getMessageSchemaValidation = (t) => Yup.object().shape({
   message: Yup.string().required(t('chatPage.messageForm.errors.required')),
@@ -15,7 +15,7 @@ const getMessageSchemaValidation = (t) => Yup.object().shape({
 const MessageForm = () => {
   const inputRef = useRef(null);
   const { sendNewMessage } = useSocket();
-  const auth = useAuth();
+  const { details: userDetails } = useAuth();
   const { t } = useTranslation();
   const { currentChannelId } = useSelector((state) => state.channels);
 
@@ -38,10 +38,9 @@ const MessageForm = () => {
         validateOnBlur={false}
         onSubmit={async (values, { resetForm }) => {
           const { message: formMessage } = values;
-          const currentUser = JSON.parse(auth.getCurrentUser());
 
           const message = {
-            id: nanoid(), userId: currentUser.id, channelId: currentChannelId, msg: formMessage,
+            id: nanoid(), userId: userDetails.id, channelId: currentChannelId, msg: formMessage,
           };
 
           sendNewMessage(message, ({ status }) => {

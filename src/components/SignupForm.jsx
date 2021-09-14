@@ -4,8 +4,10 @@ import { Alert, Form, Button } from 'react-bootstrap';
 import { useHistory, useLocation } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '../hooks/auth';
+import { useDispatch } from 'react-redux';
+import { signUpUser } from '../api';
 import SignupFormWrapper from './SignupFormWrapper';
+import { loginSuccess } from '../store/currentUserSlice';
 
 const getSignupSchema = (translation) => Yup.object().shape({
   username: Yup.string()
@@ -23,8 +25,8 @@ const getSignupSchema = (translation) => Yup.object().shape({
 const SignupForm = () => {
   const [userExistsError, setUserExistsError] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
   const location = useLocation();
-  const auth = useAuth();
   const { t } = useTranslation();
 
   const signupSchema = getSignupSchema(t);
@@ -42,12 +44,24 @@ const SignupForm = () => {
         onSubmit={async (values, { setSubmitting }) => {
           const creds = JSON.stringify(values, null, 2);
 
-          auth.signup(creds, () => {
+          signUpUser(creds).then(({ status, data }) => {
+            switch (status) {
+              case 201:
+              case 200:
+                dispatch(loginSuccess(data));
+                // eslint-disable-next-line
             const { from } = location.state || { from: { pathname: '/' } };
-            setUserExistsError(false);
-            history.replace(from);
-          }, () => {
-            setUserExistsError(true);
+                setUserExistsError(false);
+                history.replace(from);
+                break;
+              case 409:
+                setUserExistsError(true);
+                break;
+              default:
+                throw new Error('Unknown status on signup');
+            }
+          }).catch((e) => {
+            console.error('Handle network errors here', e);
           });
 
           setSubmitting(false);
