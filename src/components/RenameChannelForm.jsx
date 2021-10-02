@@ -12,7 +12,7 @@ const buildValidationScheema = (exisingChannels) => (
   })
 );
 
-const RenameChannelForm = ({ channel }) => {
+const RenameChannelForm = ({ channelId }) => {
   const { renameChannel } = useSocket();
   const inputRef = useRef(null);
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const RenameChannelForm = ({ channel }) => {
       validationSchema={validationSchema}
       onSubmit={async (values, { resetForm }) => {
         const payload = {
-          name: values.name, id: channel.id,
+          name: values.name, id: channelId,
         };
         renameChannel(payload, (response) => {
           const { status } = response;

@@ -11,62 +11,55 @@ const ModalContents = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const newChannelInputRef = createRef(null);
-  const { isOpened, type, options } = useSelector((state) => state.modal);
+  const { isOpened, type: modalType, channelId } = useSelector((state) => state.modal);
 
   const handleClose = () => {
     dispatch(hideModal());
   };
 
-  const modals = {
-    NewChannelModal: {
-      modalTitle: t('chatPage.form.title'),
-      modalBodyComponent: CreateChannelForm,
-      modalBodyProps: {
-        newChannelInputRef,
-      },
-      modalFooterComponent: null,
-      modalFooterProps: null,
-    },
-    DeleteChannelConfirmationModal: {
-      modalTitle: t('modals.deleteConfirmation.title'),
-      modalBodyComponent: DeleteConfrimationBody,
-      modalBodyProps: {},
-      modalFooterComponent: DeleteConfrimationFooter,
-      modalFooterProps: { ...options },
-    },
-    RenameChannelModal: {
-      modalTitle: t('modals.renameChannel.title'),
-      modalBodyComponent: RenameChannelForm,
-      modalBodyProps: { ...options },
-      modalFooterComponent: null,
-      modalFooterProps: null,
-    },
-  };
+  if (modalType === 'NewChannelModal') {
+    return (
+      <Modal show={isOpened} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('chatPage.form.title')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <CreateChannelForm newChannelInputRef={newChannelInputRef} />
+        </Modal.Body>
+      </Modal>
+    );
+  }
 
-  const currentModal = modals[type];
-
-  if (!currentModal) return null;
-
-  return (
-    <Modal show={isOpened} onHide={handleClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>{currentModal.modalTitle}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <currentModal.modalBodyComponent {...currentModal.modalBodyProps} />
-      </Modal.Body>
-      {
-        currentModal.modalFooterComponent
-        && (
+  if (modalType === 'DeleteChannelConfirmationModal') {
+    return (
+      <Modal show={isOpened} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('modals.deleteConfirmation.title')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <DeleteConfrimationBody />
+        </Modal.Body>
         <Modal.Footer>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <currentModal.modalFooterComponent {...currentModal.modalFooterProps} />
+          <DeleteConfrimationFooter channelId={channelId} />
         </Modal.Footer>
-        )
-      }
-    </Modal>
-  );
+      </Modal>
+    );
+  }
+
+  if (modalType === 'RenameChannelModal') {
+    return (
+      <Modal show={isOpened} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>{t('modals.renameChannel.title')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <RenameChannelForm channelId={channelId} />
+        </Modal.Body>
+      </Modal>
+    );
+  }
+
+  return null;
 };
 
 export default ModalContents;
