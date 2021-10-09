@@ -13,7 +13,7 @@ export const modalSlice = createSlice({
     showModal: (_, action) => ({
       isOpened: true,
       type: action.payload.type,
-      options: action.payload.options,
+      channelId: action.payload.channelId,
     }),
     hideModal: () => ({
       isOpened: false,

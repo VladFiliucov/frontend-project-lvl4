@@ -23,10 +23,10 @@ const RemovableChannel = ({ channel, handleClick, active }) => {
   const dispatch = useDispatch();
   const labelBtnClassNames = `w-100 rounded-0 text-start text-truncate btn ${active && 'btn-secondary'}`;
   const handleDeletion = () => {
-    dispatch(showModal({ type: 'DeleteChannelConfirmationModal', options: { channel } }));
+    dispatch(showModal({ type: 'DeleteChannelConfirmationModal', channelId: channel.id }));
   };
   const handleRenaming = () => {
-    dispatch(showModal({ type: 'RenameChannelModal', options: { channel } }));
+    dispatch(showModal({ type: 'RenameChannelModal', channelId: channel.id }));
   };
 
   return (

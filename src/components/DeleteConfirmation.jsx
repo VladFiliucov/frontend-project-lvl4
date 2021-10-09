@@ -13,14 +13,14 @@ export const DeleteConfrimationBody = () => {
   );
 };
 
-export const DeleteConfrimationFooter = ({ channel }) => {
+export const DeleteConfrimationFooter = ({ channelId }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { removeChannel } = useSocket();
   const handleClose = () => dispatch(hideModal());
 
   const handleConfirmDeletion = () => {
-    removeChannel({ id: channel.id }, (response) => {
+    removeChannel({ id: channelId }, (response) => {
       const { status } = response;
       if (status === 'ok') {
         handleClose();
