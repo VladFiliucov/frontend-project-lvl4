@@ -37,14 +37,9 @@ export const channelsSlice = createSlice({
         state.data = action.payload.data.channels;
         state.currentChannelId = action.payload.data.currentChannelId;
         state.error = null;
-        state.loading = false;
-      })
-      .addCase(fetchDataFromApi.pending, (state) => {
-        state.loading = true;
       })
       .addCase(fetchDataFromApi.rejected, (state, action) => {
         state.error = action.error;
-        state.loading = false;
       });
   },
   /* eslint-enable no-param-reassign */
